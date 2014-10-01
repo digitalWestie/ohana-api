@@ -78,7 +78,7 @@ CREATE TABLE addresses (
     street text,
     city text,
     uprn text,
-    zip text,
+    postcode text,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -385,7 +385,7 @@ CREATE TABLE mail_addresses (
     attention text,
     street text,
     city text,
-    zip text,
+    postcode text,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
