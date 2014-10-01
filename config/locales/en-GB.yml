@@ -19,9 +19,9 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-en:
+en-GB:
   admin:
-    api_location: 'San Mateo County'
+    api_location: 'Clackmannanshire'
 
   enumerize:
     location:
@@ -60,3 +60,18 @@ en:
     brand: "Ohana API"
     admin: "%{brand} Admin"
     developer: "%{brand} Developers"
+
+  number:
+    currency:
+      format:
+        precision: 2
+        separator: .
+        significant: false
+        strip_insignificant_zeros: false
+        unit: £
+
+  date:
+    formats:
+      default: '%d-%m-%Y'
+      long: '%d %B, %Y'
+      short: '%d %b'
