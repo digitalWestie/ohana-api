@@ -5,19 +5,19 @@
       .col-sm-6
         = f.text_field :street, class: 'form-control'
   .form-group
-    = f.label :city, 'City'
+    = f.label :city, 'Town'
     .row
       .col-sm-6
         = f.text_field :city, maxlength: 255, class: 'form-control'
   .form-group
-    = f.label :state, 'State (2-letter abbreviation)'
-    .row
-      .col-sm-2
-        = f.text_field :state, maxlength: 2, class: 'form-control'
-  .form-group
-    = f.label :zip, 'ZIP Code'
+    = f.label :postcode, 'Postcode'
     .row
       .col-xs-4
-        = f.text_field :zip, maxlength: 5, class: 'form-control'
+        = f.text_field :postcode, maxlength: 10, class: 'form-control'
+  .form-group
+    = f.label :uprn, 'UPRN (Unique property reference number)'
+    .row
+      .col-sm-4
+        = f.text_field :uprn, maxlength: 50, class: 'form-control'
   = f.hidden_field :_destroy
   = link_to 'Delete this address permanently', '#', class: 'btn btn-danger delete_association'
