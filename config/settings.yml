@@ -12,7 +12,7 @@
 # app/views/admin/organizations/index.html.haml.
 #
 # Please make sure to change this to your own email address.
-admin_support_email: ohanapi@codeforamerica.org
+admin_support_email: giannichan@gmail.com
 
 # An array of email domain names used by the admin interface to determine which
 # users get to access which locations. For convenience, the API allows a client
@@ -45,6 +45,7 @@ generic_domains:
 # updating a Location's or a Service's languages.
 languages:
 - 'American Sign Language'
+- 'British Sign Language'
 - 'Amharic'
 - 'Arabic'
 - 'Aramaic'
@@ -142,14 +143,9 @@ languages:
 # These will be the values that admin interface users will choose from when
 # updating a Service's service areas.
 valid_service_areas:
-  - 'Alameda County'
-  - 'Belmont'
-  - 'Burlingame'
-  - 'Colma'
-  - 'Daly City'
-  - 'East Palo Alto'
-  - 'San Mateo County'
-  - 'South San Francisco'
+  - 'Clackmannanshire'
+  - 'Stirling'
+  - 'Falkirk'
 
 ############################
 #
@@ -160,7 +156,7 @@ valid_service_areas:
 # The email address that confirmation emails are sent from after user signup,
 # for the Developer and Admin portals.
 # Please make sure to change this to your own email address.
-confirmation_email: ohanapi@codeforamerica.org
+confirmation_email: giannichan@gmail.com
 
 ###############################
 #
@@ -186,7 +182,7 @@ confirmation_email: ohanapi@codeforamerica.org
 # Make sure to change the coordinates to match your preferred search area.
 #
 # This setting is used in 'app/models/concerns/search.rb'.
-bounds: [[25.7084, -124.085], [48.9084, -67.085]]
+bounds: [[56.057801, -3.988724], [56.199396, -3.56987]]
 
 ###########################################
 #
@@ -200,4 +196,4 @@ test:
 
   bounds: [[37.1074, -122.521], [37.7084, -122.085]]
 
-  confirmation_email: registration@ohanapi.org
+  confirmation_email: giannichan@gmail.com
