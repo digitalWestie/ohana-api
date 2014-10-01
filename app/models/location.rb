@@ -126,7 +126,7 @@ class Location < ActiveRecord::Base
 
   def full_physical_address
     return unless address.present?
-    "#{address.street}, #{address.city}, #{address.state} #{address.zip}"
+    "#{address.street}, #{address.city}, #{address.zip}"
   end
 
   def coordinates
