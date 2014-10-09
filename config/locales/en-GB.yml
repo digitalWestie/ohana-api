@@ -57,9 +57,9 @@ en-GB:
       no_address: 'A location must have at least one address type.'
 
   titles:
-    brand: "Ohana API"
-    admin: "%{brand} Admin"
-    developer: "%{brand} Developers"
+    brand: "Clackmannanshire Parenting & Childcare API"
+    admin: "%{brand}: Admin"
+    developer: "%{brand}: Dev Portal"
 
   number:
     currency:

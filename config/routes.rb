@@ -73,5 +73,6 @@ Rails.application.routes.draw do
     get 'docs' => 'api_docs#index'
   end
 
+  get 'developers' => 'home#developers'
   root to: 'home#index'
 end

@@ -1,14 +1,11 @@
-%h3= t('titles.developer', brand: t('titles.brand'))
+%h3 Service Providers
 
-- if user_signed_in?
-  %p
-    Welcome back #{@user.name}! #{link_to 'Create a new application', new_api_application_path} or #{link_to 'view', api_applications_path} your existing ones.
-- else
-  %p
-    Welcome to the #{t('titles.brand')} developer portal!
-  %p
-    This particular instance of the API exposes information about various human services providers in #{t('admin.api_location')}.
-  %p
-    We'd love for you to build something that will connect underprivileged residents with the help they need (food, shelter, medical care, etc.). Read the #{link_to 'documentation', docs_url} to learn more.
-  %p
-    #{link_to 'Sign up', new_user_registration_path} for a developer account, or #{link_to 'sign in', new_user_session_path}.
+%p
+  If you'd like to add your organisation and its services to our database, please complete the
+  = link_to 'sign up form', admin_registration_path
+  and we'll get back to you as soon as possible.
+
+%h3 Developers
+%p
+  If you're a developer looking to use our API, head over to the
+  = link_to 'developer portal.', '/developers', class: ''
