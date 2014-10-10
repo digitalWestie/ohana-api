@@ -74,5 +74,7 @@ Rails.application.routes.draw do
   end
 
   get 'developers' => 'home#developers'
+  get 'alt_admin' => 'admin/dashboard#index'
+
   root to: 'home#index'
 end
