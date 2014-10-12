@@ -1,6 +1,6 @@
 class Admin < ActiveRecord::Base
-  attr_accessible :name, :email, :password,
-                  :password_confirmation, :remember_me
+  attr_accessible :name, :email, :password, #:password_confirmation,
+                  :remember_me
 
   # Devise already checks for presence of email and password.
   validates :name, presence: true
