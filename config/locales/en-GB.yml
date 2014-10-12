@@ -45,7 +45,7 @@ en-GB:
       blank_for_fax: "can't be blank for Fax"
       blank_for_location: "can't be blank for Location"
       blank_for_mail_address: "can't be blank for Mail Address"
-      blank_for_org: "can't be blank for Organization"
+      blank_for_org: "can't be blank for Organisation"
       blank_for_phone: "can't be blank for Phone"
       blank_for_service: "can't be blank for Service"
       invalid_email: 'is not a valid email'
@@ -75,3 +75,6 @@ en-GB:
       default: '%d-%m-%Y'
       long: '%d %B, %Y'
       short: '%d %b'
+  activerecord:
+    models:
+      organization: 'organisation'

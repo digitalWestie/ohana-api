@@ -1,6 +1,6 @@
 - if @organization.errors.any?
   .alert.alert-danger
-    %h2= "#{pluralize(@organization.errors.count, 'error')} prohibited this organization from being saved:"
+    %h2= "#{pluralize(@organization.errors.count, 'error')} prohibited this organisation from being saved:"
     %ul
       - @organization.errors.full_messages.each do |msg|
         %li= msg
@@ -13,11 +13,11 @@
     %strong
       Danger Zone
   %h4
-    Delete this organization
+    Delete this organisation
   %p
-    Once you delete an organization, there is no going back. Please be certain.
+    Once you delete an organisation, there is no going back. Please be certain.
   %p
-    = link_to 'Permanently delete this organization', { action: :confirm_delete_organization, org_id: @organization.id, org_name: @organization.name }, remote: true, data: { toggle: 'modal', target: '#modal-window' }, class: 'boxed-action'
+    = link_to 'Permanently delete this organisation', { action: :confirm_delete_organization, org_id: @organization.id, org_name: @organization.name }, remote: true, data: { toggle: 'modal', target: '#modal-window' }, class: 'boxed-action'
 #modal-window.modal.fade{ 'aria-hidden' => 'true', 'aria-labelledby' => 'myModalLabel', 'role' => 'dialog', 'tabindex' => '-1' }
 
 .save-box.navbar-default
