@@ -8,10 +8,10 @@ Rails.application.routes.draw do
   # Read more about routing: http://guides.rubyonrails.org/routing.html
 
   devise_for :users, controllers: { registrations: 'user/registrations' }
-  devise_for :admins, path: 'admin', controllers: { registrations: 'admin/registrations' }
+  devise_for :admins, path: ENV['ADMIN_PATH'] || '/', controllers: { registrations: 'admin/registrations' }
 
-  constraints(SubdomainConstraints.new(subdomain: ENV['ADMIN_SUBDOMAIN'])) do
-    namespace :admin, path: 'administrate' do
+  #constraints(SubdomainConstraints.new(subdomain: ENV['ADMIN_SUBDOMAIN'])) do
+    namespace :admin, path: ENV['ADMIN_PATH'] do
       root to: 'dashboard#index', as: :dashboard
 
       resources :locations, except: :show do
@@ -28,7 +28,7 @@ Rails.application.routes.draw do
       get 'locations/:id', to: 'locations#edit'
       get 'organizations/:id', to: 'organizations#edit'
     end
-  end
+  #end
 
   resources :api_applications, except: :show
   get 'api_applications/:id' => 'api_applications#edit'
