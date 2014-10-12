@@ -11,8 +11,9 @@ Rails.application.routes.draw do
   devise_for :admins, path: ENV['ADMIN_PATH'] || '/', controllers: { registrations: 'admin/registrations' }
 
   constraints(SubdomainConstraints.new(subdomain: ENV['ADMIN_SUBDOMAIN'])) do
+    get 'admin' => 'admin/dashboard#index'
+
     namespace :admin, path: ENV['ADMIN_PATH'] do
-      get '/' => 'dashboard#index'
       root to: 'dashboard#index', as: :dashboard
 
       resources :locations, except: :show do
