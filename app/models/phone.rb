@@ -8,7 +8,7 @@ class Phone < ActiveRecord::Base
 
   validates :number,
             presence: { message: I18n.t('errors.messages.blank_for_phone') },
-            phone: { unless: ->(phone) { phone.number == '711' } }
+            uk_phone: true #phone.number == '711' } }
 
   auto_strip_attributes :department, :extension, :number, :number_type,
                         :vanity_number, squish: true
