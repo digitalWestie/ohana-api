@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   constraints(SubdomainConstraints.new(subdomain: ENV['ADMIN_SUBDOMAIN'])) do
     namespace :admin, path: ENV['ADMIN_PATH'] do
-      get '/' => 'admin/dashboard#index'
+      get '/' => 'dashboard#index'
       root to: 'dashboard#index', as: :dashboard
 
       resources :locations, except: :show do
