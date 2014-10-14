@@ -57,7 +57,7 @@ en-GB:
       no_address: 'A location must have at least one address type.'
 
   titles:
-    brand: "Clackmannanshire Parenting & Childcare API"
+    brand: "Clackskids CMS"
     admin: "%{brand}: Admin"
     developer: "%{brand}: Dev Portal"
 
