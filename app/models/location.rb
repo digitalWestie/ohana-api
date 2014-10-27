@@ -1,9 +1,8 @@
 class Location < ActiveRecord::Base
-  attr_accessible :accessibility, :address, :admin_emails, :contacts,
-                  :description, :emails, :faxes, :hours, :languages,
-                  :latitude, :longitude, :mail_address, :name, :phones,
-                  :short_desc, :transportation, :urls, :address_attributes,
-                  :contacts_attributes, :faxes_attributes,
+  attr_accessible :accessibility, :active, :admin_emails, :alternate_name,
+                  :description, :emails, :hours, :languages, :latitude,
+                  :longitude, :name, :short_desc, :transportation, :urls,
+                  :virtual, :address_attributes, :contacts_attributes,
                   :mail_address_attributes, :phones_attributes,
                   :services_attributes
 
@@ -15,10 +14,6 @@ class Location < ActiveRecord::Base
 
   has_many :contacts, dependent: :destroy
   accepts_nested_attributes_for :contacts,
-                                allow_destroy: true, reject_if: :all_blank
-
-  has_many :faxes, dependent: :destroy
-  accepts_nested_attributes_for :faxes,
                                 allow_destroy: true, reject_if: :all_blank
 
   has_one :mail_address, dependent: :destroy
@@ -34,17 +29,11 @@ class Location < ActiveRecord::Base
   # has_many :schedules, dependent: :destroy
   # accepts_nested_attributes_for :schedules
 
-  validates :mail_address,
-            presence: {
-              message: I18n.t('errors.messages.no_address')
-            },
-            unless: proc { |loc| loc.address.present? }
-
   validates :address,
             presence: {
               message: I18n.t('errors.messages.no_address')
             },
-            unless: proc { |loc| loc.mail_address.present? }
+            unless: ->(location) { location.virtual? }
 
   validates :description, :organization, :name,
             presence: { message: I18n.t('errors.messages.blank_for_location') }
@@ -69,13 +58,11 @@ class Location < ActiveRecord::Base
   # custom array validator. See app/validators/array_validator.rb
   validates :urls, array: { url: true }
 
+  validates :languages, pg_array: true
+
   validates :emails, :admin_emails, array: { email: true }
 
-  # Only call Google's geocoding service if the address has changed
-  # to avoid unnecessary requests that affect our rate limit.
   after_validation :geocode, if: :needs_geocoding?
-
-  after_validation :reset_coordinates, if: proc { |l| l.address.blank? }
 
   geocoded_by :full_physical_address
 
@@ -100,7 +87,7 @@ class Location < ActiveRecord::Base
   auto_strip_attributes :description, :hours, :name, :short_desc,
                         :transportation
 
-  auto_strip_attributes :admin_emails, :emails, :languages, :urls,
+  auto_strip_attributes :admin_emails, :emails, :urls,
                         reject_blank: true, nullify: false
 
   extend FriendlyId
@@ -117,7 +104,7 @@ class Location < ActiveRecord::Base
   end
 
   def address_street
-    address.street if address.present?
+    address.street_1 if address.present?
   end
 
   def mail_address_city
@@ -126,20 +113,20 @@ class Location < ActiveRecord::Base
 
   def full_physical_address
     return unless address.present?
-    "#{address.street}, #{address.city}, #{address.zip}"
+    "#{address.street}, #{address.city}, #{address.state} #{address.postal_code}"
   end
 
   def coordinates
     [longitude, latitude] if longitude.present? && latitude.present?
   end
 
-  def reset_coordinates
-    self.latitude = nil
-    self.longitude = nil
+  def needs_geocoding?
+    return false if address.blank? || new_record_with_coordinates?
+    address.changed?
   end
 
-  def needs_geocoding?
-    address.changed? || latitude.nil? || longitude.nil? if address.present?
+  def new_record_with_coordinates?
+    new_record? && latitude.present? && longitude.present?
   end
 
   # See app/models/concerns/search.rb

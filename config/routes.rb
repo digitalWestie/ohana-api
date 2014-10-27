@@ -16,17 +16,23 @@ Rails.application.routes.draw do
 
       resources :locations, except: :show do
         resources :services, except: [:show, :index]
+        resources :contacts, except: [:show, :index]
       end
 
       resources :organizations, except: :show
+      resources :programs, except: :show
+      resources :services, only: :index
 
       get 'locations/:location_id/services/confirm_delete_service', to: 'services#confirm_delete_service', as: :confirm_delete_service
       get 'organizations/confirm_delete_organization', to: 'organizations#confirm_delete_organization', as: :confirm_delete_organization
       get 'locations/confirm_delete_location', to: 'locations#confirm_delete_location', as: :confirm_delete_location
+      get 'programs/confirm_delete_program', to: 'programs#confirm_delete_program', as: :confirm_delete_program
 
       get 'locations/:location_id/services/:id', to: 'services#edit'
+      get 'locations/:location_id/contacts/:id', to: 'contacts#edit'
       get 'locations/:id', to: 'locations#edit'
       get 'organizations/:id', to: 'organizations#edit'
+      get 'programs/:id', to: 'programs#edit'
     end
   #end
 
@@ -47,9 +53,10 @@ Rails.application.routes.draw do
         resources :locations do
           resources :address, except: [:index, :show]
           resources :mail_address, except: [:index, :show]
-          resources :contacts, except: [:show]
-          resources :faxes, except: [:show]
-          resources :phones, except: [:show]
+          resources :contacts, except: [:show] do
+            resources :phones, except: [:show, :index], path: '/phones', controller: 'contact_phones'
+          end
+          resources :phones, except: [:show], path: '/phones', controller: 'location_phones'
           resources :services
         end
 
@@ -74,6 +81,5 @@ Rails.application.routes.draw do
   end
 
   get 'developers' => 'home#developers'
-
   root to: 'home#index'
 end

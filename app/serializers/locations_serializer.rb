@@ -1,7 +1,7 @@
 class LocationsSerializer < ActiveModel::Serializer
-  attributes :id, :admin_emails, :coordinates, :description, :latitude, :longitude, :name,
-             :short_desc, :slug, :updated_at, :urls, :contacts_url, :faxes_url,
-             :services_url, :url
+  attributes :id, :active, :admin_emails, :alternate_name, :coordinates,
+             :description, :latitude, :longitude, :name, :short_desc, :slug,
+             :updated_at, :urls, :contacts_url, :services_url, :url
 
   has_one :address
   has_one :organization
@@ -9,10 +9,6 @@ class LocationsSerializer < ActiveModel::Serializer
 
   def contacts_url
     api_location_contacts_url(object)
-  end
-
-  def faxes_url
-    api_location_faxes_url(object)
   end
 
   def services_url

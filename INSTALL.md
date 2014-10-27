@@ -93,10 +93,13 @@ with your JSON file.
 
 - Run `script/reset` from the command line.
 
-If the script fails because of `Geocoder::OverQueryLimitError`, try increasing
-the sleep value on line 34 in `setup_db.rake `. Alternatively,
-use a different geocoding service that allows more requests per second.
-See the [geocoding configuration][geocode] section in the Wiki for more details.
+If your Location entries don't already include a latitude and longitude, the
+script will geocode them for you, but this can cause the script to fail with
+`Geocoder::OverQueryLimitError`. If you get that error, try increasing the
+sleep value on line 34 in `setup_db.rake `. Alternatively, cache requests
+and/or use a different geocoding service that allows more requests per second.
+See the [geocoding configuration][geocode] section in the Wiki for more
+details.
 
 If any locations contain invalid data, the script will output the following line:
 ```
@@ -151,15 +154,24 @@ script/import
 
 ### User and Admin authentication (for the developer portal and admin interface)
 
+To access the developer portal, visit [http://localhost:8080/](http://localhost:8080/).
+
+To access the admin interface, visit [http://localhost:8080/admin/](http://localhost:8080/admin/).
+
 The app automatically sets up users and admins you can sign in with.
 Their username and password are stored in [db/seeds.rb][seeds].
 
 [seeds]: https://github.com/codeforamerica/ohana-api/blob/master/db/seeds.rb
 
+The third admin in the seeds file is automatically set as a Super Admin. If you
+would like to set additional admins as super admins, you will need to do it
+manually for security reasons.
+
 To set an admin as a Super Admin:
 
     psql ohana_api_development
-    UPDATE "admins" SET super_admin = true WHERE id = 3;
+    UPDATE "admins" SET super_admin = true WHERE email = 'masteradmin@ohanapi.org';
     \q
 
-To access the admin interface, visit [http://localhost:8080/admin/](http://localhost:8080/admin/).
+Replace `masteradmin@ohanapi.org` in the command above with the email of the
+admin you want to set as a super admin.

@@ -31,6 +31,7 @@ FactoryGirl.define do
       urls [' http://samaritanhouse.com  ', 'http://samaritanhouse.com']
       admin_emails [' foo@bar.com  ', 'foo@bar.com']
       emails [' bar@foo.com  ', 'bar@foo.com']
+      languages [' English', 'Vietnamese ']
     end
   end
 
@@ -50,6 +51,7 @@ FactoryGirl.define do
     name 'No Address'
     description 'no coordinates'
     short_desc 'short description'
+    virtual true
     association :mail_address, factory: :po_box
     association :organization, factory: :no_address_org
   end

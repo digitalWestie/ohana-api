@@ -1,16 +1,27 @@
 class Address < ActiveRecord::Base
-  attr_accessible :city, :uprn, :street, :postcode
-  alias_attribute :zip, :postcode
+  attr_accessible :city, :uprn, :street_1, :street_2, :postal_code, :country_code
   alias_attribute :town, :city
 
   belongs_to :location, touch: true
 
-  validates :street,
+  validates :street_1,
             :city,
-            :postcode,
+            :postal_code,
+            :country_code,
             presence: { message: I18n.t('errors.messages.blank_for_address') }
 
-  #validates_format_of :postcode, :with =>  /^([A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]|[A-HK-Y][0-9]([0-9]|[ABEHMNPRV-Y]))|[0-9][A-HJKS-UW])\s?[0-9][ABD-HJLNP-UW-Z]{2}|(GIR\ 0AA)|(SAN\ TA1)|(BFPO\ (C\/O\ )?[0-9]{1,4})|((ASCN|BBND|[BFS]IQQ|PCRN|STHL|TDCU|TKCA)\ 1ZZ))$$/i, :message => "invalid postcode"
+  validates :country_code, length: { maximum: 2, minimum: 2 }
 
-  auto_strip_attributes :street, :city, :uprn, :postcode, squish: true
+  validates :postal_code
+
+  auto_strip_attributes :street_1, :street_2, :city, :uprn, :postal_code,
+                        :country_code, squish: true
+
+  after_destroy :reset_location_coordinates
+
+  private
+
+  def reset_location_coordinates
+    location.update(latitude: nil, longitude: nil)
+  end
 end

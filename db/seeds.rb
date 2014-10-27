@@ -7,6 +7,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+# Set up test users for the Developer Portal.
 puts '===> Setting up first test user...'
 user = User.create! name: 'First User',
                     email: 'user@example.com',
@@ -21,6 +22,7 @@ user2 = User.create! name: 'Second User',
                      password_confirmation: 'mong01dtest'
 user2.confirm!
 
+# Set up test users for the Admin Interface.
 puts '===> Setting up first test admin...'
 admin = Admin.create! :name => 'admin with custom domain name',
                     :email => 'ohana@samaritanhouse.com',
@@ -41,3 +43,5 @@ admin3 = Admin.create! :name => 'Super Admin',
                      :password => 'ohanatest',
                      :password_confirmation => 'ohanatest'
 admin3.confirm!
+admin3.super_admin = true
+admin3.save
