@@ -187,6 +187,39 @@ ALTER SEQUENCE api_applications_id_seq OWNED BY api_applications.id;
 
 
 --
+-- Name: availabilities; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE availabilities (
+    id integer NOT NULL,
+    service_id_id integer,
+    location_id_id integer,
+    hours text,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: availabilities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE availabilities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: availabilities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE availabilities_id_seq OWNED BY availabilities.id;
+
+
+--
 -- Name: categories; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -621,6 +654,13 @@ ALTER TABLE ONLY api_applications ALTER COLUMN id SET DEFAULT nextval('api_appli
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY availabilities ALTER COLUMN id SET DEFAULT nextval('availabilities_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY categories ALTER COLUMN id SET DEFAULT nextval('categories_id_seq'::regclass);
 
 
@@ -709,6 +749,14 @@ ALTER TABLE ONLY admins
 
 ALTER TABLE ONLY api_applications
     ADD CONSTRAINT api_applications_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: availabilities_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY availabilities
+    ADD CONSTRAINT availabilities_pkey PRIMARY KEY (id);
 
 
 --
@@ -838,6 +886,20 @@ CREATE UNIQUE INDEX index_api_applications_on_api_token ON api_applications USIN
 --
 
 CREATE INDEX index_api_applications_on_user_id ON api_applications USING btree (user_id);
+
+
+--
+-- Name: index_availabilities_on_location_id_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_availabilities_on_location_id_id ON availabilities USING btree (location_id_id);
+
+
+--
+-- Name: index_availabilities_on_service_id_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_availabilities_on_service_id_id ON availabilities USING btree (service_id_id);
 
 
 --
@@ -1161,4 +1223,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141023040419');
 INSERT INTO schema_migrations (version) VALUES ('20141024022657');
 
 INSERT INTO schema_migrations (version) VALUES ('20141024025404');
+
+INSERT INTO schema_migrations (version) VALUES ('20141028231723');
 
