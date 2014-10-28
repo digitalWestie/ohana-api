@@ -13,6 +13,6 @@ class MailAddress < ActiveRecord::Base
 
   validates :country_code, length: { maximum: 2, minimum: 2 }
 
-  auto_strip_attributes :street_1, :street_2, :city, :uprn, :postal_code,
+  auto_strip_attributes :street_1, :street_2, :city, :postal_code,
                         :country_code, squish: true
 end
