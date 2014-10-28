@@ -4,8 +4,10 @@ class Service < ActiveRecord::Base
                   :keywords, :languages, :name, :required_documents,
                   :service_areas, :status, :website, :wait, :category_ids
 
-  belongs_to :location, touch: true
+  has_many :availabilities, dependent: :destroy
+  has_many :locations, through: :availabilities
   belongs_to :program
+  belongs_to :organization
 
   has_and_belongs_to_many :categories, -> { order('oe_id asc').uniq }
 
