@@ -341,7 +341,6 @@ CREATE TABLE locations (
     admin_emails text,
     description text,
     emails text,
-    hours text,
     latitude double precision,
     longitude double precision,
     languages text[] DEFAULT '{}'::text[],
@@ -541,7 +540,6 @@ CREATE TABLE schema_migrations (
 
 CREATE TABLE services (
     id integer NOT NULL,
-    location_id integer,
     audience text,
     description text NOT NULL,
     eligibility text,
@@ -561,7 +559,8 @@ CREATE TABLE services (
     required_documents character varying(255)[] DEFAULT '{}'::character varying[],
     status character varying(255) DEFAULT 'active'::character varying NOT NULL,
     website character varying(255),
-    program_id integer
+    program_id integer,
+    organization_id integer
 );
 
 
@@ -1043,10 +1042,10 @@ CREATE INDEX index_services_on_languages ON services USING gin (languages);
 
 
 --
--- Name: index_services_on_location_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_services_on_organization_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_services_on_location_id ON services USING btree (location_id);
+CREATE INDEX index_services_on_organization_id ON services USING btree (organization_id);
 
 
 --
@@ -1225,4 +1224,10 @@ INSERT INTO schema_migrations (version) VALUES ('20141024022657');
 INSERT INTO schema_migrations (version) VALUES ('20141024025404');
 
 INSERT INTO schema_migrations (version) VALUES ('20141028231723');
+
+INSERT INTO schema_migrations (version) VALUES ('20141028234224');
+
+INSERT INTO schema_migrations (version) VALUES ('20141028234300');
+
+INSERT INTO schema_migrations (version) VALUES ('20141028235021');
 
