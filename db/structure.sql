@@ -192,8 +192,8 @@ ALTER SEQUENCE api_applications_id_seq OWNED BY api_applications.id;
 
 CREATE TABLE availabilities (
     id integer NOT NULL,
-    service_id_id integer,
-    location_id_id integer,
+    service_id integer,
+    location_id integer,
     hours text,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
@@ -888,17 +888,17 @@ CREATE INDEX index_api_applications_on_user_id ON api_applications USING btree (
 
 
 --
--- Name: index_availabilities_on_location_id_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_availabilities_on_location_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_availabilities_on_location_id_id ON availabilities USING btree (location_id_id);
+CREATE INDEX index_availabilities_on_location_id ON availabilities USING btree (location_id);
 
 
 --
--- Name: index_availabilities_on_service_id_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_availabilities_on_service_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_availabilities_on_service_id_id ON availabilities USING btree (service_id_id);
+CREATE INDEX index_availabilities_on_service_id ON availabilities USING btree (service_id);
 
 
 --
