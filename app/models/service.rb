@@ -18,7 +18,7 @@ class Service < ActiveRecord::Base
 
   validates :email, email: true, allow_blank: true
 
-  validates :name, :description, :how_to_apply, :location, :status,
+  validates :name, :description, :how_to_apply, :status,
             presence: { message: I18n.t('errors.messages.blank_for_service') }
 
   validates :service_areas, array: { service_area: true }
@@ -39,13 +39,17 @@ class Service < ActiveRecord::Base
   extend Enumerize
   enumerize :status, in: [:active, :defunct, :inactive]
 
-  after_save :update_location_status, if: :status_changed?
+  after_save :update_location_statuses, if: :status_changed?
 
   private
 
-  def update_location_status
-    return if location.active == location_services_active?
-    location.update_columns(active: location_services_active?)
+  def update_location_statuses
+    locations.each { |l| update_location_status(l) }
+  end
+
+  def update_location_status(location)
+    return if location.active == location_services_active?(location)
+    location.update_columns(active: location_services_active?(location))
   end
 
   def location_services_active?

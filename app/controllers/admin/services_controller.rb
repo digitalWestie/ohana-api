@@ -111,7 +111,7 @@ class Admin
     end
 
     def program_ids_for(service)
-      service.organization.programs.pluck(:id)
+      @location.organization.programs.pluck(:id)
     end
   end
 end
