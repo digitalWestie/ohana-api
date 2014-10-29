@@ -1,5 +1,5 @@
 class Availability < ActiveRecord::Base
-  attributes :hours
+  attr_accessible :hours
   belongs_to :service
   belongs_to :location
 end
