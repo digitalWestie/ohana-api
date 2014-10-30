@@ -41,12 +41,13 @@ CREATE FUNCTION fill_search_vector_for_location() RETURNS trigger
           begin
             select name into location_organization from organizations where id = new.organization_id;
 
-            select string_agg(keywords, ' ') as keywords into location_services_keywords from services where location_id = new.id;
-            select description into location_services_description from services where location_id = new.id;
-            select name into location_services_name from services where location_id = new.id;
+            select string_agg(keywords, ' ') as keywords into location_services_keywords from services INNER JOIN availabilities ON services.id = availabilities.service_id where availabilities.location_id = new.id;
+            select description into location_services_description from services INNER JOIN availabilities ON services.id = availabilities.service_id where availabilities.location_id = new.id;
+            select name into location_services_name from services INNER JOIN availabilities ON services.id = availabilities.service_id where availabilities.location_id = new.id;
 
             select string_agg(categories.name, ' ') as name into service_categories from locations
-            JOIN services ON services.location_id = new.id
+            JOIN availabilities ON availabilities.location_id = new.id
+            JOIN services ON services.id = availabilities.service_id
             JOIN categories_services ON categories_services.service_id = services.id
             JOIN categories ON categories.id = categories_services.category_id;
 
@@ -386,10 +387,10 @@ CREATE TABLE locations (
     slug text,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    tsv_body tsvector,
     alternate_name character varying(255),
     virtual boolean DEFAULT false,
-    active boolean DEFAULT true
+    active boolean DEFAULT true,
+    tsv_body tsvector
 );
 
 
@@ -461,7 +462,7 @@ CREATE TABLE organizations (
     updated_at timestamp without time zone,
     alternate_name character varying(255),
     date_incorporated date,
-    description text DEFAULT ' '::text NOT NULL,
+    description text DEFAULT 'No description found'::text NOT NULL,
     email character varying(255),
     legal_status character varying(255),
     tax_id character varying(255),
@@ -1378,9 +1379,9 @@ INSERT INTO schema_migrations (version) VALUES ('20141028234224');
 
 INSERT INTO schema_migrations (version) VALUES ('20141028234300');
 
-INSERT INTO schema_migrations (version) VALUES ('20141028235021');
-
 INSERT INTO schema_migrations (version) VALUES ('20141029170109');
 
 INSERT INTO schema_migrations (version) VALUES ('20141030012617');
+
+INSERT INTO schema_migrations (version) VALUES ('20141030222914');
 
