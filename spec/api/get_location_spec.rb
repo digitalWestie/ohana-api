@@ -35,6 +35,10 @@ describe 'GET /locations/:id' do
       expect(json['description']).to eq(@location.description)
     end
 
+    it 'does not include the hours attribute' do
+      expect(json.keys).not_to include('hours')
+    end
+
     it 'includes the latitude attribute' do
       expect(json['latitude']).to eq(@location.latitude)
     end
@@ -77,8 +81,12 @@ describe 'GET /locations/:id' do
     end
 
     it 'includes the serialized services association' do
-      service_formatted_time = @location.services.first.updated_at.
+      @service.regular_schedules.create!(attributes_for(:regular_schedule))
+
+      service_formatted_time = @service.reload.updated_at.
         strftime('%Y-%m-%dT%H:%M:%S.%3N%:z')
+
+      get api_location_url(@location, subdomain: ENV['API_SUBDOMAIN'])
 
       serialized_services =
         [{
@@ -101,7 +109,14 @@ describe 'GET /locations/:id' do
           'website'            => nil,
           'wait'               => nil,
           'updated_at'         => service_formatted_time,
-          'categories'         => []
+          'categories'         => [],
+          'regular_schedules'  => [
+            {
+              'weekday'   => 'Monday',
+              'opens_at'  => '2000-01-01T09:30:00.000Z',
+              'closes_at' => '2000-01-01T17:00:00.000Z'
+            }
+          ]
         }]
 
       expect(json['services']).to eq(serialized_services)
@@ -177,6 +192,19 @@ describe 'GET /locations/:id' do
       )
     end
 
+    it 'includes the serialized regular_schedules association' do
+      @location.regular_schedules.create!(attributes_for(:regular_schedule))
+      get api_location_url(@location, subdomain: ENV['API_SUBDOMAIN'])
+
+      serialized_regular_schedule =
+        {
+          'weekday'   => 'Monday',
+          'opens_at'  => '2000-01-01T09:30:00.000Z',
+          'closes_at' => '2000-01-01T17:00:00.000Z'
+        }
+      expect(json['regular_schedules'].first).to eq(serialized_regular_schedule)
+    end
+
     it 'is json' do
       expect(response.content_type).to eq('application/json')
     end
@@ -219,7 +247,7 @@ describe 'GET /locations/:id' do
     it 'returns nil fields when visiting one location' do
       get api_location_url(@loc, subdomain: ENV['API_SUBDOMAIN'])
       keys = json.keys
-      %w(admin_emails emails accessibility hours).each do |key|
+      %w(admin_emails emails accessibility).each do |key|
         expect(keys).to include(key)
       end
     end

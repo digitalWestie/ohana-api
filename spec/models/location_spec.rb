@@ -11,7 +11,6 @@ describe Location do
   it { is_expected.to allow_mass_assignment_of(:alternate_name) }
   it { is_expected.to allow_mass_assignment_of(:description) }
   it { is_expected.to allow_mass_assignment_of(:emails) }
-  it { is_expected.to allow_mass_assignment_of(:hours) }
   it { is_expected.to allow_mass_assignment_of(:languages) }
   it { is_expected.to allow_mass_assignment_of(:latitude) }
   it { is_expected.to allow_mass_assignment_of(:longitude) }
@@ -28,12 +27,16 @@ describe Location do
   it { is_expected.to have_one(:mail_address).dependent(:destroy) }
   it { is_expected.to have_many(:phones).dependent(:destroy) }
   it { is_expected.to have_many(:services).dependent(:destroy) }
+  it { is_expected.to have_many(:regular_schedules).dependent(:destroy) }
+  it { is_expected.to have_many(:holiday_schedules).dependent(:destroy) }
 
   it { is_expected.to accept_nested_attributes_for(:address).allow_destroy(true) }
-  it { is_expected.to accept_nested_attributes_for(:contacts) }
+  it { is_expected.to accept_nested_attributes_for(:contacts).allow_destroy(true) }
   it { is_expected.to accept_nested_attributes_for(:mail_address).allow_destroy(true) }
-  it { is_expected.to accept_nested_attributes_for(:phones) }
-  it { is_expected.to accept_nested_attributes_for(:services) }
+  it { is_expected.to accept_nested_attributes_for(:phones).allow_destroy(true) }
+  it { is_expected.to accept_nested_attributes_for(:services).allow_destroy(true) }
+  it { is_expected.to accept_nested_attributes_for(:regular_schedules).allow_destroy(true) }
+  it { is_expected.to accept_nested_attributes_for(:holiday_schedules).allow_destroy(true) }
 
   it { is_expected.to validate_presence_of(:name).with_message("can't be blank for Location") }
   it { is_expected.to validate_presence_of(:description).with_message("can't be blank for Location") }
@@ -98,7 +101,6 @@ describe Location do
       loc = build(:loc_with_extra_whitespace)
       loc.valid?
       expect(loc.description).to eq('Provides job training')
-      expect(loc.hours).to eq('Monday-Friday 10am-3pm')
       expect(loc.name).to eq('VRS Services')
       expect(loc.short_desc).to eq('Provides job training.')
       expect(loc.transportation).to eq('BART stop 1 block away.')

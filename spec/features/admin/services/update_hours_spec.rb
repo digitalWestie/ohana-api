@@ -2,9 +2,10 @@ require 'rails_helper'
 
 feature 'Update hours' do
   background do
-    @location = create(:location)
+    create_service
     login_super_admin
     visit '/admin/locations/vrs-services'
+    click_link 'Literacy Program'
   end
 
   scenario 'with valid hours', :js do
@@ -15,7 +16,7 @@ feature 'Update hours' do
     )
     click_button 'Save changes'
 
-    prefix = 'location_regular_schedules_attributes_0'
+    prefix = 'service_regular_schedules_attributes_0'
 
     expect(find_field("#{prefix}_weekday").value).to eq '2'
 
@@ -27,10 +28,11 @@ feature 'Update hours' do
   end
 
   scenario 'removing an hour', :js do
-    @location.regular_schedules.create!(attributes_for(:regular_schedule))
+    @service.regular_schedules.create!(attributes_for(:regular_schedule))
     visit '/admin/locations/vrs-services'
+    click_link 'Literacy Program'
 
-    prefix = 'location_regular_schedules_attributes_0'
+    prefix = 'service_regular_schedules_attributes_0'
     expect(find_field("#{prefix}_weekday").value).to eq '1'
 
     within '.hours' do

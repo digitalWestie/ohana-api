@@ -331,6 +331,41 @@ ALTER SEQUENCE friendly_id_slugs_id_seq OWNED BY friendly_id_slugs.id;
 
 
 --
+-- Name: holiday_schedules; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE holiday_schedules (
+    id integer NOT NULL,
+    location_id integer,
+    service_id integer,
+    closed boolean NOT NULL,
+    start_date date NOT NULL,
+    end_date date NOT NULL,
+    opens_at time without time zone,
+    closes_at time without time zone
+);
+
+
+--
+-- Name: holiday_schedules_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE holiday_schedules_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: holiday_schedules_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE holiday_schedules_id_seq OWNED BY holiday_schedules.id;
+
+
+--
 -- Name: locations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -526,6 +561,39 @@ ALTER SEQUENCE programs_id_seq OWNED BY programs.id;
 
 
 --
+-- Name: regular_schedules; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE regular_schedules (
+    id integer NOT NULL,
+    weekday integer,
+    opens_at time without time zone,
+    closes_at time without time zone,
+    service_id integer,
+    location_id integer
+);
+
+
+--
+-- Name: regular_schedules_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE regular_schedules_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: regular_schedules_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE regular_schedules_id_seq OWNED BY regular_schedules.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -681,6 +749,13 @@ ALTER TABLE ONLY friendly_id_slugs ALTER COLUMN id SET DEFAULT nextval('friendly
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY holiday_schedules ALTER COLUMN id SET DEFAULT nextval('holiday_schedules_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY locations ALTER COLUMN id SET DEFAULT nextval('locations_id_seq'::regclass);
 
 
@@ -710,6 +785,13 @@ ALTER TABLE ONLY phones ALTER COLUMN id SET DEFAULT nextval('phones_id_seq'::reg
 --
 
 ALTER TABLE ONLY programs ALTER COLUMN id SET DEFAULT nextval('programs_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY regular_schedules ALTER COLUMN id SET DEFAULT nextval('regular_schedules_id_seq'::regclass);
 
 
 --
@@ -783,6 +865,14 @@ ALTER TABLE ONLY friendly_id_slugs
 
 
 --
+-- Name: holiday_schedules_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY holiday_schedules
+    ADD CONSTRAINT holiday_schedules_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: locations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -820,6 +910,14 @@ ALTER TABLE ONLY phones
 
 ALTER TABLE ONLY programs
     ADD CONSTRAINT programs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: regular_schedules_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY regular_schedules
+    ADD CONSTRAINT regular_schedules_pkey PRIMARY KEY (id);
 
 
 --
@@ -958,6 +1056,20 @@ CREATE INDEX index_friendly_id_slugs_on_sluggable_type ON friendly_id_slugs USIN
 
 
 --
+-- Name: index_holiday_schedules_on_location_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_holiday_schedules_on_location_id ON holiday_schedules USING btree (location_id);
+
+
+--
+-- Name: index_holiday_schedules_on_service_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_holiday_schedules_on_service_id ON holiday_schedules USING btree (service_id);
+
+
+--
 -- Name: index_locations_on_active; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1032,6 +1144,41 @@ CREATE INDEX index_phones_on_location_id ON phones USING btree (location_id);
 --
 
 CREATE INDEX index_programs_on_organization_id ON programs USING btree (organization_id);
+
+
+--
+-- Name: index_regular_schedules_on_closes_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_regular_schedules_on_closes_at ON regular_schedules USING btree (closes_at);
+
+
+--
+-- Name: index_regular_schedules_on_location_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_regular_schedules_on_location_id ON regular_schedules USING btree (location_id);
+
+
+--
+-- Name: index_regular_schedules_on_opens_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_regular_schedules_on_opens_at ON regular_schedules USING btree (opens_at);
+
+
+--
+-- Name: index_regular_schedules_on_service_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_regular_schedules_on_service_id ON regular_schedules USING btree (service_id);
+
+
+--
+-- Name: index_regular_schedules_on_weekday; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_regular_schedules_on_weekday ON regular_schedules USING btree (weekday);
 
 
 --
@@ -1223,6 +1370,8 @@ INSERT INTO schema_migrations (version) VALUES ('20141024022657');
 
 INSERT INTO schema_migrations (version) VALUES ('20141024025404');
 
+INSERT INTO schema_migrations (version) VALUES ('20141027154101');
+
 INSERT INTO schema_migrations (version) VALUES ('20141028231723');
 
 INSERT INTO schema_migrations (version) VALUES ('20141028234224');
@@ -1230,4 +1379,8 @@ INSERT INTO schema_migrations (version) VALUES ('20141028234224');
 INSERT INTO schema_migrations (version) VALUES ('20141028234300');
 
 INSERT INTO schema_migrations (version) VALUES ('20141028235021');
+
+INSERT INTO schema_migrations (version) VALUES ('20141029170109');
+
+INSERT INTO schema_migrations (version) VALUES ('20141030012617');
 

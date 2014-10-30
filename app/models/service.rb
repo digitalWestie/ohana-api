@@ -2,7 +2,8 @@ class Service < ActiveRecord::Base
   attr_accessible :accepted_payments, :alternate_name, :audience, :description,
                   :eligibility, :email, :fees, :funding_sources, :how_to_apply,
                   :keywords, :languages, :name, :required_documents,
-                  :service_areas, :status, :website, :wait, :category_ids
+                  :service_areas, :status, :website, :wait, :category_ids,
+                  :regular_schedules_attributes, :holiday_schedules_attributes
 
   has_many :availabilities, dependent: :destroy
   has_many :locations, through: :availabilities
@@ -11,8 +12,13 @@ class Service < ActiveRecord::Base
 
   has_and_belongs_to_many :categories, -> { order('oe_id asc').uniq }
 
-  # has_many :schedules
-  # accepts_nested_attributes_for :schedules
+  has_many :regular_schedules, dependent: :destroy
+  accepts_nested_attributes_for :regular_schedules,
+                                allow_destroy: true, reject_if: :all_blank
+
+  has_many :holiday_schedules, dependent: :destroy
+  accepts_nested_attributes_for :holiday_schedules,
+                                allow_destroy: true, reject_if: :all_blank
 
   validates :accepted_payments, :languages, :required_documents, pg_array: true
 

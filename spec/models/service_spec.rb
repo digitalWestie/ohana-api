@@ -35,6 +35,12 @@ describe Service do
   # https://github.com/thoughtbot/shoulda-matchers/issues/549
   xit { is_expected.to have_and_belong_to_many(:categories).order('oe_id asc') }
 
+  it { is_expected.to have_many(:regular_schedules).dependent(:destroy) }
+  it { is_expected.to have_many(:holiday_schedules).dependent(:destroy) }
+
+  it { is_expected.to accept_nested_attributes_for(:regular_schedules).allow_destroy(true) }
+  it { is_expected.to accept_nested_attributes_for(:holiday_schedules).allow_destroy(true) }
+
   it { is_expected.to serialize(:funding_sources).as(Array) }
   it { is_expected.to serialize(:keywords).as(Array) }
   it { is_expected.to serialize(:service_areas).as(Array) }
