@@ -1,7 +1,7 @@
 class Organization < ActiveRecord::Base
   default_scope { order('id DESC') }
 
-  attr_accessible :accreditations, :alternate_name, :date_incorporated,
+  attr_accessible :accreditations, :admin_emails, :alternate_name, :date_incorporated,
                   :description, :email, :funding_sources, :legal_status,
                   :licenses, :name, :tax_id, :tax_status, :website
 

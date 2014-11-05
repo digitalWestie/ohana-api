@@ -6,7 +6,7 @@ class Admin
     include Taggable
 
     def index
-      @admin_decorator = AdminDecorator.new(current_admin)
+      @admin_decorator = ClacksAdminDecorator.new(current_admin)
       @services = Kaminari.paginate_array(@admin_decorator.services).
                           page(params[:page]).per(params[:per_page])
     end
@@ -14,7 +14,7 @@ class Admin
     def edit
       @location = Location.find(params[:location_id])
       @service = Service.find(params[:id])
-      @admin_decorator = AdminDecorator.new(current_admin)
+      @admin_decorator = ClacksAdminDecorator.new(current_admin)
       @oe_ids = @service.categories.pluck(:oe_id)
 
       unless @admin_decorator.allowed_to_access_location?(@location)
@@ -45,7 +45,7 @@ class Admin
     end
 
     def new
-      @admin_decorator = AdminDecorator.new(current_admin)
+      @admin_decorator = ClacksAdminDecorator.new(current_admin)
       @location = Location.find(params[:location_id])
       @oe_ids = []
 

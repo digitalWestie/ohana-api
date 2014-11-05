@@ -4,13 +4,13 @@ class Admin
     layout 'admin'
 
     def index
-      @admin_decorator = AdminDecorator.new(current_admin)
+      @admin_decorator = ClacksAdminDecorator.new(current_admin)
       @locations = Kaminari.paginate_array(@admin_decorator.locations).
                            page(params[:page]).per(params[:per_page])
     end
 
     def edit
-      @admin_decorator = AdminDecorator.new(current_admin)
+      @admin_decorator = ClacksAdminDecorator.new(current_admin)
       @location = Location.find(params[:id])
       @org = @location.organization
 
@@ -23,7 +23,7 @@ class Admin
     def update
       @location = Location.find(params[:id])
       @org = @location.organization
-      @admin_decorator = AdminDecorator.new(current_admin)
+      @admin_decorator = ClacksAdminDecorator.new(current_admin)
 
       respond_to do |format|
         if @location.update(params[:location])
@@ -39,7 +39,7 @@ class Admin
 
     def new
       @location = Location.new
-      @admin_decorator = AdminDecorator.new(current_admin)
+      @admin_decorator = ClacksAdminDecorator.new(current_admin)
       @orgs = @admin_decorator.orgs
 
       unless @orgs.present?
@@ -49,7 +49,7 @@ class Admin
     end
 
     def create
-      @admin_decorator = AdminDecorator.new(current_admin)
+      @admin_decorator = ClacksAdminDecorator.new(current_admin)
       @orgs = @admin_decorator.orgs
       org_id = params[:location][:organization_id]
 

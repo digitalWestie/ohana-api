@@ -470,7 +470,8 @@ CREATE TABLE organizations (
     website character varying(255),
     funding_sources character varying(255)[] DEFAULT '{}'::character varying[],
     accreditations character varying(255)[] DEFAULT '{}'::character varying[],
-    licenses character varying(255)[] DEFAULT '{}'::character varying[]
+    licenses character varying(255)[] DEFAULT '{}'::character varying[],
+    admin_emails text
 );
 
 
@@ -1389,4 +1390,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141030012617');
 INSERT INTO schema_migrations (version) VALUES ('20141030204742');
 
 INSERT INTO schema_migrations (version) VALUES ('20141030222914');
+
+INSERT INTO schema_migrations (version) VALUES ('20141105160112');
 
