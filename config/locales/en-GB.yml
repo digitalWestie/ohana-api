@@ -75,6 +75,16 @@ en-GB:
       default: '%d-%m-%Y'
       long: '%d %B, %Y'
       short: '%d %b'
+
   activerecord:
     models:
       organization: 'organisation'
+
+  organization: 'organisation'
+  Organization: 'Organisation'
+  location: 'location'
+  Location: 'Location'
+  program: 'programme'
+  Program: 'Programme'
+  service: 'service'
+  Service: 'Service'

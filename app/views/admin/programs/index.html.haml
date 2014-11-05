@@ -1,13 +1,13 @@
 %p
-  Below you should see a list of programs that you are allowed to administer.
+  Below you should see a list of #{t('program').pluralize} that you are allowed to administer.
   If there are any entries missing, please #{mail_to "#{SETTINGS[:admin_support_email]}", 'let us know'}.
 %p
   To start updating, click on one of the links, which will take you to the details page
-  for the program.
+  for the #{t('program')}.
 
 - if current_admin.super_admin?
   %p
-    As a super admin, you have access to all programs in the database. Please make updates responsibly.
+    As a super admin, you have access to all #{t('program').pluralize} in the database. Please make updates responsibly.
 
 %p
   - @programs.each do |program|
@@ -15,4 +15,4 @@
       = link_to program.second, edit_admin_program_path(program.first)
   = paginate @programs
 
-  = link_to 'Add a new program', new_admin_program_path, class: 'btn btn-primary'
+  = link_to "Add a new #{t(:program)}", new_admin_program_path, class: 'btn btn-primary'
