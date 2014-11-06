@@ -59,8 +59,8 @@ class Admin
 
     def program_autocomplete_field_for(f)
       f.select(
-        :program_id, @location.organization.programs.pluck(:name, :id),
-        { include_blank: 'This service is not part of any program' },
+        :program_id, @organization.programs.pluck(:name, :id),
+        { include_blank: "This service is not part of any #{t(:program)}" },
         class: 'form-control'
       )
     end

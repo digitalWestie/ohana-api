@@ -9,10 +9,14 @@
   %p
     As a super admin, you have access to all services in the database. Please make updates responsibly.
 
-%p
-  - @services.each do |service|
-    %ul
-      = link_to service[2], edit_admin_location_service_path(service[0], service[1])
-  = paginate @services
+- @organizations.each do |org|
+  %h3
+    = link_to org.name, admin_organization_path(org)
+    = link_to "Add new #{t(:service)}", new_admin_organization_service_path(org), class: 'btn'
+  %ul{ style: "list-style-position:inside; padding-left:5px;" }
+    = "No #{t(:service).pluralize} available" if org.services.empty?
+    - org.services.each do |service|
+      %li
+        = link_to service.name, edit_admin_organization_service_path(org, service)
 
-  /= link_to 'Add a new service', new_admin_service_path, class: 'btn btn-primary'
+= paginate @organizations

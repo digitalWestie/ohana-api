@@ -7,17 +7,20 @@ class Admin
 
     def index
       @admin_decorator = ClacksAdminDecorator.new(current_admin)
-      @services = Kaminari.paginate_array(@admin_decorator.services).
-                          page(params[:page]).per(params[:per_page])
+      #services = Service.joins(:organization).
+      #  where(:organization => @admin_decorator.orgs).order('organizations.name').
+      #  pluck('id', 'organization_id', 'name', 'organizations.name')
+      organizations = Organization.where(id: @admin_decorator.orgs).order('name').includes(:services)
+      @organizations = Kaminari.paginate_array(organizations).page(params[:page]).per(params[:per_page])
     end
 
     def edit
-      @location = Location.find(params[:location_id])
+      @organization = Organization.find(params[:organization_id])
       @service = Service.find(params[:id])
       @admin_decorator = ClacksAdminDecorator.new(current_admin)
       @oe_ids = @service.categories.pluck(:oe_id)
 
-      unless @admin_decorator.allowed_to_access_location?(@location)
+      unless @admin_decorator.allowed_to_access_organization?(@organization)
         redirect_to admin_dashboard_path,
                     alert: "Sorry, you don't have access to that page."
       end
@@ -25,7 +28,7 @@ class Admin
 
     def update
       @service = Service.find(params[:id])
-      @location = Location.find(params[:location_id])
+      @organization = Organization.find(params[:organization_id])
       @oe_ids = @service.categories.pluck(:oe_id)
 
       add_program_to_service_if_authorized
@@ -35,7 +38,7 @@ class Admin
       respond_to do |format|
         if @service.update(params[:service])
           format.html do
-            redirect_to [:admin, @location, @service],
+            redirect_to admin_services_path,
                         notice: 'Service was successfully updated.'
           end
         else
@@ -46,10 +49,10 @@ class Admin
 
     def new
       @admin_decorator = ClacksAdminDecorator.new(current_admin)
-      @location = Location.find(params[:location_id])
+      @organization = Organization.find(params[:organization_id])
       @oe_ids = []
 
-      unless @admin_decorator.allowed_to_access_location?(@location)
+      unless @admin_decorator.allowed_to_access_organization?(@organization)
         redirect_to admin_dashboard_path,
                     alert: "Sorry, you don't have access to that page."
       end
@@ -60,8 +63,8 @@ class Admin
     def create
       shift_and_split_params(params[:service], :funding_sources, :keywords)
 
-      @location = Location.find(params[:location_id])
-      @service = @location.services.new(params[:service])
+      @organization = Organization.find(params[:organization_id])
+      @service = @organization.services.new(params[:service])
       @oe_ids = []
 
       add_program_to_service_if_authorized
@@ -69,7 +72,7 @@ class Admin
       respond_to do |format|
         if @service.save
           format.html do
-            redirect_to admin_location_path(@location),
+            redirect_to admin_services_path,
                         notice: "Service '#{@service.name}' was successfully created."
           end
         else
@@ -82,7 +85,7 @@ class Admin
       service = Service.find(params[:id])
       service.destroy
       respond_to do |format|
-        format.html { redirect_to admin_locations_path }
+        format.html { redirect_to admin_services_path }
       end
     end
 
@@ -107,7 +110,7 @@ class Admin
     end
 
     def program_ids_for(service)
-      @location.organization.programs.pluck(:id)
+      @organization.programs.pluck(:id)
     end
   end
 end
