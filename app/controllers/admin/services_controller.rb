@@ -1,9 +1,9 @@
 class Admin
   class ServicesController < ApplicationController
+    include Taggable
+
     before_action :authenticate_admin!
     layout 'admin'
-
-    include Taggable
 
     def index
       @admin_decorator = ClacksAdminDecorator.new(current_admin)
@@ -31,9 +31,7 @@ class Admin
       @organization = Organization.find(params[:organization_id])
       @oe_ids = @service.categories.pluck(:oe_id)
 
-      add_program_to_service_if_authorized
-
-      shift_and_split_params(params[:service], :funding_sources, :keywords)
+      preprocess_service
 
       respond_to do |format|
         if @service.update(params[:service])
@@ -61,7 +59,7 @@ class Admin
     end
 
     def create
-      shift_and_split_params(params[:service], :funding_sources, :keywords)
+      preprocess_service_params
 
       @organization = Organization.find(params[:organization_id])
       @service = @organization.services.new(params[:service])
@@ -84,6 +82,7 @@ class Admin
     def destroy
       service = Service.find(params[:id])
       service.destroy
+
       respond_to do |format|
         format.html { redirect_to admin_services_path }
       end
@@ -99,6 +98,15 @@ class Admin
     end
 
     private
+
+    def preprocess_service
+      preprocess_service_params
+      add_program_to_service_if_authorized
+    end
+
+    def preprocess_service_params
+      shift_and_split_params(params[:service], :funding_sources, :keywords)
+    end
 
     def add_program_to_service_if_authorized
       prog_id = params[:service][:program_id]

@@ -8,4 +8,5 @@ class ServiceSerializer < ActiveModel::Serializer
   has_many :categories
   has_many :availabilities
   has_many :regular_schedules
+  has_many :holiday_schedules
 end
