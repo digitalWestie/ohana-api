@@ -7,9 +7,6 @@ class Admin
 
     def index
       @admin_decorator = ClacksAdminDecorator.new(current_admin)
-      #services = Service.joins(:organization).
-      #  where(:organization => @admin_decorator.orgs).order('organizations.name').
-      #  pluck('id', 'organization_id', 'name', 'organizations.name')
       organizations = Organization.where(id: @admin_decorator.orgs).order('name').includes(:services)
       @organizations = Kaminari.paginate_array(organizations).page(params[:page]).per(params[:per_page])
     end

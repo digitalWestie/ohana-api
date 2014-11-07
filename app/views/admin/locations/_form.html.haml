@@ -15,10 +15,10 @@
   = 'Click a Service below to view and update it:'
   %p
   - @location.services.each_with_index do |service, i|
-    = link_to service.name || "Service ##{i + 1}", edit_admin_location_service_path(@location, service)
+    = link_to service.name || "Service ##{i + 1}", edit_admin_organization_service_path(service.organization_id, service)
     %br
   %p
-    = link_to 'Add a new service', new_admin_location_service_path(@location), class: 'btn btn-primary'
+    =# link_to 'Add a new service', new_admin_location_service_path(@location), class: 'btn btn-primary'
 
 .danger-zone
   %header
