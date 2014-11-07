@@ -34,7 +34,7 @@ class Organization < ActiveRecord::Base
   # List of admin emails that should have access to edit a location's info.
   # Admin emails can be added to a location via the Admin interface.
   serialize :admin_emails, Array
-  auto_strip_attributes :admin_emails
+  auto_strip_attributes :admin_emails, reject_blank: true, nullify: false
 
   private
 
