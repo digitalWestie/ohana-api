@@ -65,6 +65,13 @@ class Admin
       )
     end
 
+    def location_autocomplete_field_for(f)
+      f.select(
+        :program_id, @organization.locations.pluck(:name, :id), { },
+        class: 'form-control'
+      )
+    end
+
     WEEKDAYS = %w(Monday Tuesday Wednesday Thursday Friday Saturday Sunday).freeze
 
     def weekday_select_field

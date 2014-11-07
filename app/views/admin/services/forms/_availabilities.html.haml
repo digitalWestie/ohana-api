@@ -1,0 +1,14 @@
+.inst-box
+  %header
+    %strong
+      Availability
+    %p.desc
+      Where is the service available?
+
+  - for location in f.object.locations
+    %p
+      = location.name
+
+  =# location_autocomplete_field_for(f)
+
+  =# link_to_add_fields 'Add hours of operation', f, :regular_schedules
