@@ -1,0 +1,18 @@
+.inst-box.admin_emails
+  %header
+    %strong
+      Add an admin to this organisation
+    %p.desc
+      Which email addresses should be allowed to update and delete this organisation?
+
+  - if f.object.new_record? && !current_admin.super_admin?
+    = render 'admin/organizations/forms/admin_email_fields_for_new_organization'
+  - elsif @organization.admin_emails.present?
+    - @organization.admin_emails.each_with_index do |admin, i|
+      = field_set_tag do
+        .row
+          %div{ class: "col-sm-6 #{error_class_for(@organization, :admin_emails, admin)}" }
+            = email_field_tag 'organization[admin_emails][]', admin, class: 'form-control', id: "organization_admin_emails_#{i}"
+        = link_to 'Delete this admin permanently', '#', class: 'btn btn-danger delete_attribute'
+        %hr
+  = link_to_add_array_fields 'Add a new admin email', :organizations, :admin_email

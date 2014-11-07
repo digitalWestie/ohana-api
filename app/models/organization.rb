@@ -20,6 +20,7 @@ class Organization < ActiveRecord::Base
   validates :website, url: true, allow_blank: true
 
   validates :accreditations, :funding_sources, :licenses, pg_array: true
+  validates :admin_emails, array: { email: true }
 
   auto_strip_attributes :alternate_name, :description, :email, :legal_status,
                         :name, :tax_id, :tax_status, :website
@@ -28,6 +29,12 @@ class Organization < ActiveRecord::Base
   friendly_id :name, use: [:history]
 
   after_save :touch_locations, if: :name_changed?
+
+  extend Enumerize
+  # List of admin emails that should have access to edit a location's info.
+  # Admin emails can be added to a location via the Admin interface.
+  serialize :admin_emails, Array
+  auto_strip_attributes :admin_emails
 
   private
 
