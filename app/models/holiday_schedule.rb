@@ -3,6 +3,7 @@ class HolidaySchedule < ActiveRecord::Base
 
   belongs_to :location, touch: true
   belongs_to :service, touch: true
+  belongs_to :availability
 
   validates :start_date, :end_date,
             presence: { message: I18n.t('errors.messages.blank_for_hs') }

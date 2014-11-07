@@ -343,7 +343,8 @@ CREATE TABLE holiday_schedules (
     start_date date NOT NULL,
     end_date date NOT NULL,
     opens_at time without time zone,
-    closes_at time without time zone
+    closes_at time without time zone,
+    availability_id integer
 );
 
 
@@ -575,7 +576,8 @@ CREATE TABLE regular_schedules (
     opens_at time without time zone,
     closes_at time without time zone,
     service_id integer,
-    location_id integer
+    location_id integer,
+    availability_id integer
 );
 
 
@@ -1392,4 +1394,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141030204742');
 INSERT INTO schema_migrations (version) VALUES ('20141030222914');
 
 INSERT INTO schema_migrations (version) VALUES ('20141105160112');
+
+INSERT INTO schema_migrations (version) VALUES ('20141107133827');
 

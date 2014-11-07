@@ -5,6 +5,7 @@ class RegularSchedule < ActiveRecord::Base
 
   belongs_to :location, touch: true
   belongs_to :service, touch: true
+  belongs_to :availability
 
   validates :weekday, :opens_at, :closes_at,
             presence: { message: I18n.t('errors.messages.blank_for_rs') }
