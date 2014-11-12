@@ -1,5 +1,6 @@
 class MailAddress < ActiveRecord::Base
-  attr_accessible :attention, :city, :street_1, :street_2, :postal_code, :country_code
+  attr_accessible :attention, :city, :state, :street_1, :street_2, :postal_code,
+                  :country_code
   alias_attribute :town, :city
 
   belongs_to :location, touch: true

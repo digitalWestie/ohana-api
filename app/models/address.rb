@@ -1,5 +1,6 @@
 class Address < ActiveRecord::Base
-  attr_accessible :city, :uprn, :street_1, :street_2, :postal_code, :country_code
+  attr_accessible :city, :state, :street_1, :street_2, :postal_code,
+                  :country_code, :uprn
   alias_attribute :town, :city
 
   belongs_to :location, touch: true
