@@ -1,6 +1,6 @@
 jQuery ->
   $('.edit_entry').on 'click', '.delete_association', (event) ->
-    $(this).prevAll('input[type=hidden][id^=destroy]').val('1')
+    $(this).prevAll('input[type=hidden][id$=_destroy]').val('1')
     $(this).closest('fieldset').hide()
     event.preventDefault()
 
