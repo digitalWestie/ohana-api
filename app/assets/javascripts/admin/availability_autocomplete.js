@@ -22,5 +22,9 @@ $(document).ready(function() {
   $('#availability-selector').on("select2-selecting", function(e) {
     $('#availability_at_' + e.choice.id).show();
     $('#availability_at_' + e.choice.id + ' input[id$=_destroy]').val('false');
+    $('html, body').animate({
+      scrollTop: $('#availability_at_' + e.choice.id).offset().top-60
+    }, 1500);
+
   });
 });
