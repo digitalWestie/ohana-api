@@ -69,7 +69,7 @@ class Admin
       hidden_field_tag(
         :location_name, '', id: 'availability-selector', class: 'form-control',
         data: {
-          'ajax-url' => api_organization_locations_url(f.object.organization),
+          'ajax-url' => api_organization_locations_url(@organization),
           'placeholder' => 'Choose a location'
         }
       )

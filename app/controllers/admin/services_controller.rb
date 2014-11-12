@@ -56,6 +56,7 @@ class Admin
                     alert: "Sorry, you don't have access to that page."
       end
 
+      @availabilities = []
       @unassociated_locations = @organization.locations.select(:name, :id)
       @service = Service.new
     end
@@ -77,6 +78,7 @@ class Admin
           end
         else
           @unassociated_locations = @organization.locations.select(:name, :id)
+          @availabilities = []
           format.html { render :new }
         end
       end
