@@ -10,6 +10,8 @@
   = hidden_field_tag "service[availabilities_attributes][#{location.id}][location_id]", location.id
 
   - if availability.new_record?
+    %p
+      You will be able to add hours of operation & holiday schedules once you save these changes.
   - else
     = hidden_field_tag "service[availabilities_attributes][#{location.id}][id]", availability.id
 
