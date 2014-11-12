@@ -18,17 +18,8 @@ describe MailAddress do
 
   it { is_expected.to validate_presence_of(:street_1).with_message("can't be blank for Mail Address") }
   it { is_expected.to validate_presence_of(:city).with_message("can't be blank for Mail Address") }
-  it { is_expected.to validate_presence_of(:state).with_message("can't be blank for Mail Address") }
   it { is_expected.to validate_presence_of(:postal_code).with_message("can't be blank for Mail Address") }
   it { is_expected.to validate_presence_of(:country_code).with_message("can't be blank for Mail Address") }
-
-  it do
-    is_expected.to ensure_length_of(:state).
-      is_at_least(2).
-      is_at_most(2).
-      with_short_message('is too short (minimum is 2 characters)').
-      with_long_message('is too long (maximum is 2 characters)')
-  end
 
   it do
     is_expected.to ensure_length_of(:country_code).
@@ -43,7 +34,7 @@ describe MailAddress do
   it do
     is_expected.not_to allow_value('asdf').
     for(:postal_code).
-    with_message('asdf is not a valid ZIP code')
+    with_message("asdf #{I18n.t('errors.messages.invalid_postal_code')}")
   end
 
   it { is_expected.not_to allow_value('1234').for(:postal_code) }

@@ -23,5 +23,13 @@ FactoryGirl.define do
       postal_code ' 94020'
       country_code ' US '
     end
+
+    factory :mail_clacks_hq do
+      street_1 'Kilncraigs'
+      street_2 'Greenside St'
+      city 'Alloa'
+      postal_code 'FK10 1EB'
+      country_code 'GB'
+    end
   end
 end

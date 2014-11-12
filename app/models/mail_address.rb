@@ -6,7 +6,6 @@ class MailAddress < ActiveRecord::Base
   belongs_to :location, touch: true
 
   validates :street_1,
-            :street_2,
             :city,
             :postal_code,
             :country_code,
@@ -16,6 +15,6 @@ class MailAddress < ActiveRecord::Base
 
   validates :postal_code, postal_code: true
 
-  auto_strip_attributes :street_1, :street_2, :city, :postal_code,
-                        :country_code, squish: true
+  auto_strip_attributes :street_1, :street_2, :city, :state, :postal_code,
+                        :country_code, :attention, squish: true
 end
