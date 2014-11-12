@@ -9,7 +9,7 @@ class Phone < ActiveRecord::Base
 
   validates :number,
             presence: { message: I18n.t('errors.messages.blank_for_phone') },
-            uk_phone: true #phone.number == '711' } }
+            gb_phone: true #phone.number == '711' } }
 
   validates :number_type,
             presence: { message: I18n.t('errors.messages.blank_for_phone') }

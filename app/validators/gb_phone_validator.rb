@@ -1,4 +1,4 @@
-class UkPhoneValidator < ActiveModel::EachValidator
+class GbPhoneValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     default_message = "#{value} #{I18n.t('errors.messages.invalid_phone')}"
 
