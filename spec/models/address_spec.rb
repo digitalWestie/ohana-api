@@ -36,6 +36,11 @@ describe Address do
   it { is_expected.not_to allow_value('90210-90210').for(:postal_code) }
   it { is_expected.not_to allow_value('90 210').for(:postal_code) }
 
+  context 'when country_code is gb' do
+    subject { build(:clacks_hq) }
+    it { is_expected.to allow_value('FK1 5XF', 'FK145XB').for(:postal_code) }
+  end
+
   describe 'auto_strip_attributes' do
     it 'strips extra whitespace before validation' do
       address = build(:address_with_extra_whitespace)
