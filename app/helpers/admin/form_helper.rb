@@ -65,10 +65,13 @@ class Admin
       )
     end
 
-    def location_autocomplete_field_for(f)
-      f.select(
-        :program_id, @organization.locations.pluck(:name, :id), { },
-        class: 'form-control'
+    def availability_autocomplete_field_for(f)
+      hidden_field_tag(
+        :location_name, '', id: 'availability-selector', class: 'form-control',
+        data: {
+          'ajax-url' => api_organization_locations_url(f.object.organization),
+          'placeholder' => 'Choose a location'
+        }
       )
     end
 

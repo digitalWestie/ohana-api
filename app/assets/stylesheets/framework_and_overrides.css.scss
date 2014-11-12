@@ -40,3 +40,17 @@
   @extend .btn-primary;
   @extend .btn-xs;
 }
+fieldset.bordered {
+  border: 1px solid #CCC;
+  margin: 10px;
+  border-radius:5px;
+}
+fieldset.bordered legend {
+  font-size: 0.9em;
+  margin-bottom: 0px;
+  margin-left: 0.1em;
+  padding: 5px;
+  display: inline-block;
+  border: none;
+  width: auto;
+}

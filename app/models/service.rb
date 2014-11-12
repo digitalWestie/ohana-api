@@ -3,10 +3,14 @@ class Service < ActiveRecord::Base
                   :eligibility, :email, :fees, :funding_sources, :how_to_apply,
                   :keywords, :languages, :name, :required_documents,
                   :service_areas, :status, :website, :wait, :category_ids,
-                  :regular_schedules_attributes, :holiday_schedules_attributes
+                  :regular_schedules_attributes, :holiday_schedules_attributes,
+                  :availabilities_attributes
 
   has_many :availabilities, dependent: :destroy
   has_many :locations, through: :availabilities
+
+  accepts_nested_attributes_for :availabilities, allow_destroy: true, reject_if: :all_blank
+
   belongs_to :program
   belongs_to :organization
 
@@ -46,6 +50,10 @@ class Service < ActiveRecord::Base
   enumerize :status, in: [:active, :defunct, :inactive]
 
   after_save :update_location_statuses, if: :status_changed?
+
+  def unassociated_locations
+    Location.where(:organization_id => self.organization_id).where.not(id: locations)
+  end
 
   private
 

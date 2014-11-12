@@ -1,0 +1,15 @@
+- is_hidden = availability.new_record? ? "display:none;" : ""
+
+= field_set_tag location.name, class: "bordered", id: "availability_at_#{location.id}", style: is_hidden do
+
+  = hidden_field_tag "service[availabilities_attributes][#{location.id}][location_id]", location.id
+
+  - is_new = "false"
+  - if availability.new_record?
+    - is_new = "1"
+  - else
+    = hidden_field_tag "service[availabilities_attributes][#{location.id}][id]", availability.id
+
+  = hidden_field_tag "service[availabilities_attributes][#{location.id}][_destroy]", is_new, id: "destroy_availability_at_#{location.id}"
+
+  = link_to('Remove this location', '#', class: 'btn btn-danger delete_availability')

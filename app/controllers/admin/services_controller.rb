@@ -21,6 +21,8 @@ class Admin
         redirect_to admin_dashboard_path,
                     alert: "Sorry, you don't have access to that page."
       end
+      @availabilities = @service.availabilities.includes(:location)
+      @unassociated_locations = @service.unassociated_locations.select(:name, :id)
     end
 
     def update
@@ -52,6 +54,7 @@ class Admin
                     alert: "Sorry, you don't have access to that page."
       end
 
+      @unassociated_locations = @organization.locations.select(:name, :id)
       @service = Service.new
     end
 
@@ -102,6 +105,7 @@ class Admin
     end
 
     def preprocess_service_params
+      #preprocess_availabilities
       shift_and_split_params(params[:service], :funding_sources, :keywords)
     end
 
@@ -117,5 +121,18 @@ class Admin
     def program_ids_for(service)
       @organization.programs.pluck(:id)
     end
+
+    def preprocess_availabilities
+      availability_params = params[:service].delete(:availability_attrs)
+      availabilities = {}
+      i = 0
+      availability_params.each do |location_id, data|
+        #build up proper :availabilities_attributes params
+        availabilities.merge!(index.to_sym => data.merge(location_id: location_id))
+        i+=1
+      end
+      params[:service].merge!(:availabilities_attributes => availabilities)
+    end
+
   end
 end

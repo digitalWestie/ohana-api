@@ -3,12 +3,12 @@
     %strong
       Availability
     %p.desc
-      Where is the service available?
+      When and where is the service available?
+  %p
+    = availability_autocomplete_field_for(f)
 
-  - for location in f.object.locations
-    %p
-      = location.name
+  - for availability in @availabilities
+    = render 'admin/locations/forms/availabilities_fields', f: f, availability: availability, location: availability.location
 
-  =# location_autocomplete_field_for(f)
-
-  =# link_to_add_fields 'Add hours of operation', f, :regular_schedules
+  - for location in @unassociated_locations
+    = render 'admin/locations/forms/availabilities_fields', f: f, availability: @service.availabilities.build(), location: location

@@ -21,3 +21,8 @@ jQuery ->
     inputs = $(this).parent().find('input')
     inputs[inputs.length - 1].setAttribute('id', time)
     event.preventDefault()
+
+  $('.edit_entry').on 'click', '.delete_availability', (event) ->
+    $(this).prevAll('input[type=hidden][id^=destroy]').val('1')
+    $(this).closest('fieldset').hide()
+    event.preventDefault()
