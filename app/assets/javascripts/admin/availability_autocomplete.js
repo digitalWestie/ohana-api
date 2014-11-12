@@ -21,6 +21,6 @@ $(document).ready(function() {
 
   $('#availability-selector').on("select2-selecting", function(e) {
     $('#availability_at_' + e.choice.id).show();
-    $('#destroy_availability_at_' + e.choice.id).val('false');
+    $('#availability_at_' + e.choice.id + ' input[id$=_destroy]').val('false');
   });
 });
