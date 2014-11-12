@@ -5,7 +5,6 @@ FactoryGirl.define do
     how_to_apply 'By phone.'
     keywords ['library', 'food pantries', 'stood famps', 'emergency']
     status 'active'
-    location
   end
 
   factory :service_with_extra_whitespace, class: Service do
@@ -26,6 +25,5 @@ FactoryGirl.define do
     status 'active'
     website ' http://www.monfresh.com '
     wait '2 days '
-    location
   end
 end

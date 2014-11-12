@@ -216,7 +216,7 @@ test:
 
   bounds: [[37.1074, -122.521], [37.7084, -122.085]]
 
-  confirmation_email: giannichan@gmail.com
+  confirmation_email: registration@ohanapi.org
 
   languages:
   - 'Arabic'
@@ -228,6 +228,5 @@ test:
   - 'Picture ID'
 
   valid_service_areas:
-  - 'Clackmannanshire'
-  - 'Stirling'
-  - 'Falkirk'
+  - 'Atherton'
+  - 'Belmont'
