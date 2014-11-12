@@ -22,7 +22,7 @@ class Admin
                     alert: "Sorry, you don't have access to that page."
       end
 
-      @availabilities = @service.availabilities.includes(:location).includes(:regular_schedules)
+      @availabilities = @service.availabilities.includes(:location).includes(:regular_schedules).includes(:holiday_schedules)
       @unassociated_locations = @service.unassociated_locations.select(:name, :id)
     end
 
@@ -39,7 +39,7 @@ class Admin
             redirect_to admin_services_path, notice: 'Service was successfully updated.'
           end
         else
-          @availabilities = @service.availabilities.includes(:location).includes(:regular_schedules)
+          @availabilities = @service.availabilities.includes(:location).includes(:regular_schedules).includes(:holiday_schedules)
           @unassociated_locations = @service.unassociated_locations.select(:name, :id)
           format.html { render :edit }
         end
