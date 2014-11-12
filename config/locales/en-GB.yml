@@ -54,6 +54,7 @@ en-GB:
       invalid_service_area: 'is not a valid service area'
       invalid_url: 'is not a valid URL'
       invalid_zip: 'is not a valid postcode'
+      invalid_postal_code: 'is not a valid postcode'
       no_address: 'A location must have at least one address type.'
 
   titles:
