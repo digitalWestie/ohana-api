@@ -78,10 +78,11 @@ CREATE TABLE addresses (
     location_id integer,
     street_1 text,
     city text,
-    uprn text,
+    state character varying(255),
     postal_code text,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
+    uprn character varying(255),
     country_code character varying(255) DEFAULT 'GB'::character varying NOT NULL,
     street_2 character varying(255)
 );
@@ -424,6 +425,7 @@ CREATE TABLE mail_addresses (
     attention text,
     street_1 text,
     city text,
+    state character varying(255),
     postal_code text,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -1396,4 +1398,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141030222914');
 INSERT INTO schema_migrations (version) VALUES ('20141105160112');
 
 INSERT INTO schema_migrations (version) VALUES ('20141107133827');
+
+INSERT INTO schema_migrations (version) VALUES ('20141112201818');
 
