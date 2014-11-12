@@ -46,11 +46,12 @@ fieldset.bordered {
   border-radius:5px;
 }
 fieldset.bordered legend {
-  font-size: 0.9em;
+  font-size: 1em;
   margin-bottom: 0px;
   margin-left: 0.1em;
   padding: 5px;
   display: inline-block;
   border: none;
   width: auto;
+  font-weight:bold;
 }

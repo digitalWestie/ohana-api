@@ -21,7 +21,8 @@ class Admin
         redirect_to admin_dashboard_path,
                     alert: "Sorry, you don't have access to that page."
       end
-      @availabilities = @service.availabilities.includes(:location)
+
+      @availabilities = @service.availabilities.includes(:location).includes(:regular_schedules)
       @unassociated_locations = @service.unassociated_locations.select(:name, :id)
     end
 
@@ -35,10 +36,11 @@ class Admin
       respond_to do |format|
         if @service.update(params[:service])
           format.html do
-            redirect_to admin_services_path,
-                        notice: 'Service was successfully updated.'
+            redirect_to admin_services_path, notice: 'Service was successfully updated.'
           end
         else
+          @availabilities = @service.availabilities.includes(:location).includes(:regular_schedules)
+          @unassociated_locations = @service.unassociated_locations.select(:name, :id)
           format.html { render :edit }
         end
       end
@@ -74,6 +76,7 @@ class Admin
                         notice: "Service '#{@service.name}' was successfully created."
           end
         else
+          @unassociated_locations = @organization.locations.select(:name, :id)
           format.html { render :new }
         end
       end
@@ -105,7 +108,6 @@ class Admin
     end
 
     def preprocess_service_params
-      #preprocess_availabilities
       shift_and_split_params(params[:service], :funding_sources, :keywords)
     end
 
@@ -120,18 +122,6 @@ class Admin
 
     def program_ids_for(service)
       @organization.programs.pluck(:id)
-    end
-
-    def preprocess_availabilities
-      availability_params = params[:service].delete(:availability_attrs)
-      availabilities = {}
-      i = 0
-      availability_params.each do |location_id, data|
-        #build up proper :availabilities_attributes params
-        availabilities.merge!(index.to_sym => data.merge(location_id: location_id))
-        i+=1
-      end
-      params[:service].merge!(:availabilities_attributes => availabilities)
     end
 
   end

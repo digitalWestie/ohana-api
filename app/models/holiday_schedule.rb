@@ -1,5 +1,5 @@
 class HolidaySchedule < ActiveRecord::Base
-  attr_accessible :closed, :start_date, :end_date, :opens_at, :closes_at
+  attr_accessible :closed, :start_date, :end_date, :opens_at, :closes_at, :availability_id
 
   belongs_to :location, touch: true
   belongs_to :service, touch: true

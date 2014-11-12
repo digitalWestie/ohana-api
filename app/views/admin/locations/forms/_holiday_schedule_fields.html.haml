@@ -1,13 +1,13 @@
 = field_set_tag do
   .form-group
-    = f.label :start_date, 'Start date'
     .row
-      .col-md-6
+      .col-md-4
+        = f.label :start_date, 'Start date'
+        %br
         = f.date_select :start_date, include_blank: true, discard_year: true, class: 'form-control'
-  .form-group
-    = f.label :end_date, 'End date'
-    .row
-      .col-md-6
+      .col-md-4
+        = f.label :end_date, 'End date'
+        %br
         = f.date_select :end_date, include_blank: true, discard_year: true, class: 'form-control'
   .form-group
     = f.label :closed, 'Closed or open during the above dates?'
@@ -23,6 +23,7 @@
         = 'Closes at:'
         = f.time_select :closes_at, minute_step: 15, prompt: true, ampm: true, ignore_date: true
 
+  = f.hidden_field :availability_id, value: availability_id if defined?(availability_id) and f.object.new_record?
+
   = f.hidden_field :_destroy
   = link_to 'Remove this holiday schedule', '#', class: 'btn btn-danger delete_association'
-  %hr
