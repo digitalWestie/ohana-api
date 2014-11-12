@@ -1,6 +1,6 @@
 class ZipValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
-    default_message = "#{value} #{I18n.t('errors.messages.invalid_zip')}"
+    default_message = "#{value} #{I18n.t('errors.messages.invalid_postal_code')}"
 
     unless value =~ /\A\d{5}(-\d{4})?\z/
       record.errors[attribute] << (options[:message] || default_message)
