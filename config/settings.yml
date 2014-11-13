@@ -13,10 +13,11 @@
 # payment methods across all services.
 accepted_payments:
 - 'Cash'
-- 'Check'
 - 'Credit Card'
-- 'EBT Card'
-- 'Medicare'
+- 'Debit Card'
+- 'Cheque'
+- 'Bank Transfer'
+- 'Direct Debit'
 
 # The email address that admin interface users should send questions/issues to.
 # This link appears when an admin views their locations and organizations.
