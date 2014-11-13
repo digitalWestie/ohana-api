@@ -12,18 +12,13 @@
 
 .content-box
   %h2= t('Service').pluralize
-  - if @location.new_record?
-    = "You will need to save this #{t('location')} first before associating it with a #{t('service')}"
-    - disabled_class = "disabled"
-  - else
-    - disabled_class = ""
-    %p= "Click a #{t('service')} below to view and update it:"
+  = "Click a #{t('service')} below to view and update it:"
   %p
   - @location.services.each_with_index do |service, i|
     = link_to service.name || "Service ##{i + 1}", edit_admin_organization_service_path(service.organization_id, service)
     %br
   %p
-    = link_to 'Add a new service', new_admin_organization_service_path(@org, with:@location.id), class: "btn btn-primary #{disabled_class}"
+    = link_to 'Add a new service', new_admin_organization_service_path(@org, with:@location.id), class: "btn btn-primary"
 
 .danger-zone
   %header
