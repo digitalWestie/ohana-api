@@ -1,0 +1,21 @@
+.inst-box
+  %header
+    %strong
+      Age Range
+    %p.desc
+      Is there a target age range for this service?
+
+  - has_age_range = !(f.object.max_age.eql?(100) and f.object.min_age.eql?(0))
+
+  = field_set_tag do
+    = label_tag 'has_age_range_true', 'Yes, there is a target age range'
+    = radio_button_tag 'has_age_range', true,  has_age_range
+    %br
+    = label_tag 'has_age_range_false', 'No, it\'s available to all ages', style: ""
+    = radio_button_tag 'has_age_range', false, !has_age_range
+
+  = field_set_tag '', id: 'age-fields' do
+    = f.label :min_age, 'Minimum'
+    = f.number_field :min_age, :min => 0, :style => "margin-right: 1em;"
+    = f.label :max_age, 'Maximum'
+    = f.number_field :max_age, :min => 1

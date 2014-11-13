@@ -4,7 +4,7 @@ class Service < ActiveRecord::Base
                   :keywords, :languages, :name, :required_documents,
                   :service_areas, :status, :website, :wait, :category_ids,
                   :regular_schedules_attributes, :holiday_schedules_attributes,
-                  :availabilities_attributes
+                  :availabilities_attributes, :min_age, :max_age
 
   has_many :availabilities, dependent: :destroy
   has_many :locations, through: :availabilities

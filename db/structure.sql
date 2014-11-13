@@ -637,7 +637,9 @@ CREATE TABLE services (
     status character varying(255) DEFAULT 'active'::character varying NOT NULL,
     website character varying(255),
     program_id integer,
-    organization_id integer
+    organization_id integer,
+    max_age integer DEFAULT 100,
+    min_age integer DEFAULT 0
 );
 
 
@@ -1402,4 +1404,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141107133827');
 INSERT INTO schema_migrations (version) VALUES ('20141112201818');
 
 INSERT INTO schema_migrations (version) VALUES ('20141113133740');
+
+INSERT INTO schema_migrations (version) VALUES ('20141113194406');
 
