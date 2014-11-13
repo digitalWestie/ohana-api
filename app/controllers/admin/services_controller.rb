@@ -58,6 +58,7 @@ class Admin
 
       @availabilities = []
       @unassociated_locations = @organization.locations.select(:name, :id)
+      @preselected_locations  = Location.where(id: params[:with_location]).pluck(:id)
       @service = Service.new
     end
 
@@ -78,6 +79,7 @@ class Admin
           end
         else
           @unassociated_locations = @organization.locations.select(:name, :id)
+          @preselected_locations  = @service.availabilities.collect {|a| a.location_id}
           @availabilities = []
           format.html { render :new }
         end

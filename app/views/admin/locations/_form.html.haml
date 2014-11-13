@@ -18,7 +18,7 @@
     = link_to service.name || "Service ##{i + 1}", edit_admin_organization_service_path(service.organization_id, service)
     %br
   %p
-    = link_to 'Add a new service', new_admin_organization_service_path(@org, with:@location.id), class: "btn btn-primary"
+    = link_to 'Add a new service', new_admin_organization_service_path(@org, with_location:@location.id), class: "btn btn-primary"
 
 .danger-zone
   %header

@@ -11,4 +11,4 @@
     = render 'admin/locations/forms/availabilities_fields', f: f, availability: availability, location: availability.location
 
   - for location in @unassociated_locations
-    = render 'admin/locations/forms/availabilities_fields', f: f, availability: @service.availabilities.build(), location: location
+    = render 'admin/locations/forms/availabilities_fields', f: f, availability: @service.availabilities.build(), location: location, preselected: @preselected_locations.include?(location.id)
