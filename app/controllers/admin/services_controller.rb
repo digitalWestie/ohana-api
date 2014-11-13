@@ -24,6 +24,7 @@ class Admin
 
       @availabilities = @service.availabilities.includes(:location).includes(:regular_schedules).includes(:holiday_schedules)
       @unassociated_locations = @service.unassociated_locations.select(:name, :id)
+      @preselected_locations  = Location.where(id: params[:with_location]).pluck(:id)
     end
 
     def update
@@ -41,6 +42,7 @@ class Admin
         else
           @availabilities = @service.availabilities.includes(:location).includes(:regular_schedules).includes(:holiday_schedules)
           @unassociated_locations = @service.unassociated_locations.select(:name, :id)
+          @preselected_locations  = @service.availabilities.collect {|a| a.location_id}
           format.html { render :edit }
         end
       end
