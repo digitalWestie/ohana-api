@@ -20,5 +20,5 @@ class Phone < ActiveRecord::Base
                         :vanity_number, squish: true
 
   extend Enumerize
-  enumerize :number_type, in: [:fax, :hotline, :tty, :voice]
+  enumerize :number_type, in: [:voice, :fax, :hotline, :tty]
 end
