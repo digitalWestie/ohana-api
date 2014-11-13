@@ -2,7 +2,7 @@
 %html
   %head
     %meta{content: 'width=device-width, initial-scale=1.0', name: 'viewport'}
-      %title= content_for?(:title) ? yield(:title) : 'Clackmannanshire Parenting and Childcare API'
+      %title= content_for?(:title) ? yield(:title) : t('title.brand')
       %meta{content: content_for?(:description) ? yield(:description) : 'An open-source API of parenting, childcare, and human services providers in the Clackmannanshire area', name: 'description'}
         = stylesheet_link_tag 'application', media: 'all'
         = javascript_include_tag 'application'

@@ -2,9 +2,9 @@
   %li
     = link_to 'Edit account', edit_admin_registration_path
   %li
-    = link_to 'Organizations', admin_organizations_path
+    =# link_to t('Organization').pluralize, admin_organizations_path
   %li
-    = link_to 'Locations', admin_locations_path
+    =# link_to t('Location').pluralize, admin_locations_path
   %li
     = link_to 'Sign out', destroy_admin_session_path, method: 'delete'
   %ul.nav.navbar-nav.navbar-right
