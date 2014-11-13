@@ -118,7 +118,9 @@ class Location < ActiveRecord::Base
 
   def full_physical_address
     return unless address.present?
-    "#{address.street_1}, #{address.street_2}, #{address.city}, #{address.postal_code}"
+    addy = [address.street_1, address.street_2, address.city, address.state, address.postal_code]
+    addy.compact!
+    addy.join(', ')
   end
 
   def coordinates
