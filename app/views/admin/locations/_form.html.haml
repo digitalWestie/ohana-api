@@ -1,8 +1,8 @@
 = render 'admin/locations/forms/fields', f: f
 
 .content-box
-  %h2= 'Contacts'
-  = 'Click a Contact below to view and update it:'
+  %h2= t('Contact').pluralize
+  = "Click a #{t('contact')} below to view and update it:"
   %p
   - @location.contacts.each do |contact|
     = link_to contact.name, edit_admin_location_contact_path(@location, contact)
@@ -11,21 +11,26 @@
     = link_to 'Add a new contact', new_admin_location_contact_path(@location), class: 'btn btn-primary'
 
 .content-box
-  %h2= 'Services'
-  = 'Click a Service below to view and update it:'
+  %h2= t('Service').pluralize
+  - if @location.new_record?
+    = "You will need to save this #{t('location')} first before associating it with a #{t('service')}"
+    - disabled_class = "disabled"
+  - else
+    - disabled_class = ""
+    %p= "Click a #{t('service')} below to view and update it:"
   %p
   - @location.services.each_with_index do |service, i|
     = link_to service.name || "Service ##{i + 1}", edit_admin_organization_service_path(service.organization_id, service)
     %br
   %p
-    =# link_to 'Add a new service', new_admin_location_service_path(@location), class: 'btn btn-primary'
+    = link_to 'Add a new service', new_admin_organization_service_path(@org, with:@location.id), class: "btn btn-primary #{disabled_class}"
 
 .danger-zone
   %header
     %strong
       Danger Zone
   %h4
-    Delete this location
+    Delete this #{t('location')}
   %p
     Once you delete a location, there is no going back. Please be certain.
   %p
