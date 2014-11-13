@@ -59,7 +59,6 @@ generic_domains:
 # in alphabetical order.
 languages:
 - 'American Sign Language'
-- 'British Sign Language'
 - 'Amharic'
 - 'Arabic'
 - 'Aramaic'
@@ -67,6 +66,7 @@ languages:
 - 'Assyrian'
 - 'Bengali'
 - 'Bosnian'
+- 'British Sign Language'
 - 'Burmese'
 - 'Cambodian'
 - 'Cantonese'
@@ -77,6 +77,7 @@ languages:
 - 'Czech'
 - 'Danish'
 - 'Dutch'
+- 'English'
 - 'Fijian'
 - 'Filipino'
 - 'Finnish'
