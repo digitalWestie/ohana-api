@@ -51,7 +51,7 @@ class Admin
     def create
       @location = Location.new(params[:location])
 
-      assign_location_to_org(AdminDecorator.new(current_admin).orgs)
+      assign_location_to_org(ClacksAdminDecorator.new(current_admin).orgs)
 
       if @location.save
         redirect_to admin_locations_url, notice: 'Location was successfully created.'
