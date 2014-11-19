@@ -6,6 +6,7 @@ class LocationsSerializer < ActiveModel::Serializer
   has_one :address
   has_one :organization
   has_many :phones
+  has_many :services each_serializer: BasicServiceSerializer
 
   def contacts_url
     api_location_contacts_url(object)
@@ -18,4 +19,5 @@ class LocationsSerializer < ActiveModel::Serializer
   def url
     api_location_url(object)
   end
+
 end
