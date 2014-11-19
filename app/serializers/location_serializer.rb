@@ -8,7 +8,7 @@ class LocationSerializer < ActiveModel::Serializer
   has_many :contacts
   has_one :mail_address
   has_many :phones
-  has_many :services
+  has_many :services, each_serializer: BasicServiceSerializer
   has_many :regular_schedules
   has_many :holiday_schedules
   has_one :organization
