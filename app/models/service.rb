@@ -46,6 +46,9 @@ class Service < ActiveRecord::Base
   serialize :keywords, Array
   serialize :service_areas, Array
 
+  include PgSearch
+  pg_search_scope :search_keywords, :against => [:description, :keywords]
+
   extend Enumerize
   enumerize :status, in: [:active, :defunct, :inactive]
 
