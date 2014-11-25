@@ -639,7 +639,8 @@ CREATE TABLE services (
     program_id integer,
     organization_id integer,
     max_age integer DEFAULT 100,
-    min_age integer DEFAULT 0
+    min_age integer DEFAULT 0,
+    search_vector tsvector
 );
 
 
@@ -1277,6 +1278,13 @@ CREATE INDEX organizations_name ON organizations USING gin (to_tsvector('english
 
 
 --
+-- Name: services_search_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX services_search_idx ON services USING gin (search_vector);
+
+
+--
 -- Name: services_service_areas; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1295,6 +1303,13 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 --
 
 CREATE TRIGGER locations_search_content_trigger BEFORE INSERT OR UPDATE ON locations FOR EACH ROW EXECUTE PROCEDURE fill_search_vector_for_location();
+
+
+--
+-- Name: services_search_vector_update; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER services_search_vector_update BEFORE INSERT OR UPDATE ON services FOR EACH ROW EXECUTE PROCEDURE tsvector_update_trigger('search_vector', 'pg_catalog.english', 'name', 'description', 'keywords');
 
 
 --
@@ -1406,4 +1421,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141112201818');
 INSERT INTO schema_migrations (version) VALUES ('20141113133740');
 
 INSERT INTO schema_migrations (version) VALUES ('20141113194406');
+
+INSERT INTO schema_migrations (version) VALUES ('20141125175711');
 

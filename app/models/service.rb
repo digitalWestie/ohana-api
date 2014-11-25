@@ -58,6 +58,9 @@ class Service < ActiveRecord::Base
     Location.where(:organization_id => self.organization_id).where.not(id: locations)
   end
 
+  # See app/models/concerns/service_search.rb
+  include ServiceSearch
+
   private
 
   def update_location_statuses
