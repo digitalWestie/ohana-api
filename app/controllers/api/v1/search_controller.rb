@@ -33,10 +33,12 @@ module Api
 
       def tables
         if params[:org_name].present? && params[:location].present?
-          [:address, :phones]
+          results = [:address, :phones]
         else
-          [:organization, :address, :phones]
+          results = [:organization, :address, :phones, :services]
         end
+        results << :categories if params[:category].present?
+        results
       end
     end
   end
