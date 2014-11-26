@@ -1,5 +1,8 @@
 class ServiceSerializer < BasicServiceSerializer
 
+  attributes :availabilities
+  has_one :organization
+
   def availabilities
     result = []
     for availability in object.availabilities
