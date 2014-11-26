@@ -2,6 +2,11 @@ module ServiceSearch
   extend ActiveSupport::Concern
   included do
     scope :keyword, ->(keyword) { keyword_search(keyword) }
+    scope :category, ->(category) { joins(:categories).where(categories: { name: category }) }
+
+    scope :org_name, (lambda do |org|
+      joins(:organization).where('organizations.name @@ :q', q: org)
+    end)
 
     include PgSearch
     pg_search_scope :keyword_search,
@@ -36,5 +41,8 @@ module ServiceSearch
     def allowed_params(params)
       params.slice(:keyword, :status)
     end
+
+    #TODO: add age search, day search
+
   end
 end
