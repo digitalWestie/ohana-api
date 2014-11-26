@@ -72,7 +72,7 @@ class Service < ActiveRecord::Base
     location.update_columns(active: location_services_active?(location))
   end
 
-  def location_services_active?
+  def location_services_active?(location)
     location.services.pluck(:status).include?('active')
   end
 end
