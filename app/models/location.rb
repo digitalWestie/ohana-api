@@ -34,6 +34,8 @@ class Location < ActiveRecord::Base
   accepts_nested_attributes_for :holiday_schedules,
                                 allow_destroy: true, reject_if: :all_blank
 
+  has_many :categories, through: :services
+
   validates :address,
             presence: {
               message: I18n.t('errors.messages.no_address')
