@@ -29,7 +29,23 @@ module Api
         generate_pagination_headers(nearby)
       end
 
+      def services
+        services = Service.search(params).page(params[:page]).
+          per(params[:per_page]).
+          includes(services_tables)
+
+        render json: services, each_serializer: ServiceSerializer, status: 200
+        generate_pagination_headers(services)
+        expires_in ENV['EXPIRES_IN'].to_i.minutes, public: true
+      end
+
       private
+
+      def services_tables
+        results = [:organization, :availabilities]
+        results << :categories if params[:category].present?
+        results
+      end
 
       def tables
         if params[:org_name].present? && params[:location].present?

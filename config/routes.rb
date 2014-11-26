@@ -63,6 +63,7 @@ Rails.application.routes.draw do
         end
 
         resources :search, only: :index
+        get 'search/services', to: 'search#services', as: :search_services
 
         resources :categories, only: :index
 
