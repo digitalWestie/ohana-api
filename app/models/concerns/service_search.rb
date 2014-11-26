@@ -25,13 +25,23 @@ module ServiceSearch
     require 'exceptions'
 
     def search(params = {})
-      text_search(params).uniq
+      if params[:location].present? or params[:lat_lng].present?
+        result = is_near(params[:location], params[:lat_lng], params[:radius]).select(:id)
+        text_search(params).where(id: result).uniq
+      else
+        text_search(params).uniq
+      end
     end
 
     def text_search(params = {})
       allowed_params(params).reduce(self) do |relation, (scope_name, value)|
         value.present? ? relation.public_send(scope_name, value) : relation.all
       end
+    end
+
+    def is_near(loc, lat_lng, radius)
+      r = Location.is_near(loc, lat_lng, radius)
+      Service.joins(:availabilities).where('availabilities.location_id' => r.map {|l| l.id })
     end
 
     def status(param)
