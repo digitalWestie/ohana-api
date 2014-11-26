@@ -78,13 +78,13 @@ CREATE TABLE addresses (
     location_id integer,
     street_1 text,
     city text,
-    uprn text,
+    state character varying(255),
     postal_code text,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
+    uprn character varying(255),
     country_code character varying(255) DEFAULT 'GB'::character varying NOT NULL,
-    street_2 character varying(255),
-    state character varying(255)
+    street_2 character varying(255)
 );
 
 
@@ -425,12 +425,12 @@ CREATE TABLE mail_addresses (
     attention text,
     street_1 text,
     city text,
+    state character varying(255),
     postal_code text,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     country_code character varying(255) DEFAULT 'GB'::character varying NOT NULL,
-    street_2 character varying(255),
-    state character varying(255)
+    street_2 character varying(255)
 );
 
 
