@@ -49,12 +49,12 @@ module ServiceSearch
       where(status: param)
     end
 
-    def min_age(param)
-      Service.where('min_age >= ?', param)
+    def min_age(min=0)
+      Service.where('max_age >= ?', min)
     end
 
-    def max_age(param)
-      Service.where('max_age <= ?', param)
+    def max_age(max=100)
+      Service.where('min_age <= ?', max)
     end
 
     def allowed_params(params)
