@@ -1,0 +1,10 @@
+.inst-box
+  %header
+    Coordinates
+    %span.desc
+      The coordinates of the location in latitude and longitude
+  = field_set_tag do
+    = f.label :latitude
+    = f.text_field :latitude, required: false, class: 'form-control'
+    = f.label :longitude
+    = f.text_field :longitude, required: false, class: 'form-control'

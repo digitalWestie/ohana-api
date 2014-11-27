@@ -15,6 +15,10 @@
 = render 'admin/locations/forms/description', f: f
 = render 'admin/locations/forms/short_desc', f: f
 = render 'admin/locations/forms/address', f: f
+
+- if !f.object.new_record? and !f.object.address.blank?
+  = render 'admin/locations/forms/coordinates', f: f if current_admin.super_admin
+
 = render 'admin/locations/forms/mail_address', f: f
 = render 'admin/locations/forms/phones', f: f
 = render 'admin/locations/forms/emails', f: f
