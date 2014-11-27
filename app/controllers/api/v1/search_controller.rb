@@ -34,7 +34,7 @@ module Api
           per(params[:per_page]).
           includes(services_tables)
 
-        render json: services, each_serializer: ServiceSerializer, status: 200
+        render json: services, each_serializer: ServicesSerializer, status: 200
         generate_pagination_headers(services)
         expires_in ENV['EXPIRES_IN'].to_i.minutes, public: true
       end
