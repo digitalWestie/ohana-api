@@ -45,7 +45,7 @@ module ServiceSearch
       Service.joins(:availabilities).where('availabilities.location_id' => r.map {|l| l.id })
     end
 
-    def status(param)
+    def activity(param)
       where(status: param)
     end
 
@@ -58,7 +58,7 @@ module ServiceSearch
     end
 
     def allowed_params(params)
-      params.slice(:keyword, :status, )
+      params.slice(:keyword, :activity, :min_age, :max_age, :weekdays)
     end
 
   end
