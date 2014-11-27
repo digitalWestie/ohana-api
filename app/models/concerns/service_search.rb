@@ -3,6 +3,7 @@ module ServiceSearch
   included do
     scope :keyword, ->(keyword) { keyword_search(keyword) }
     scope :category, ->(category) { joins(:categories).where(categories: { name: category }) }
+    scope :weekdays, ->(weekdays) { joins(:regular_schedules).where(regular_schedules: { weekday: weekdays }) }
 
     scope :org_name, (lambda do |org|
       joins(:organization).where('organizations.name @@ :q', q: org)
@@ -59,8 +60,6 @@ module ServiceSearch
     def allowed_params(params)
       params.slice(:keyword, :status, )
     end
-
-    #TODO: day search
 
   end
 end
