@@ -25,10 +25,10 @@
     = link_to_add_fields 'Add schedule', f, :regular_schedules, { availability_id: availability.id }
 
     %p
-      Holiday times
+      Times closed
     = f.fields_for :holiday_schedules, availability.holiday_schedules do |hsf|
       = render 'admin/locations/forms/holiday_schedule_fields', f: hsf, availability_id: availability.id
-    = link_to_add_fields 'Add holiday schedule', f, :holiday_schedules, { availability_id: availability.id }
+    = link_to_add_fields 'Add closed times', f, :holiday_schedules, { availability_id: availability.id }
 
   <hr/>
 

@@ -76,6 +76,10 @@ en-GB:
       default: '%d-%m-%Y'
       long: '%d %B, %Y'
       short: '%d %b'
+    order:
+      - :day
+      - :month
+      - :year
 
   activerecord:
     models:
