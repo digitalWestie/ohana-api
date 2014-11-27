@@ -8,6 +8,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # Set up test users for the Developer Portal.
+=begin
 puts '===> Setting up first test user...'
 user = User.create! name: 'First User',
                     email: 'user@example.com',
@@ -45,3 +46,6 @@ admin3 = Admin.create! :name => 'Super Admin',
 admin3.confirm!
 admin3.super_admin = true
 admin3.save
+=end
+
+c = Category.find_or_create_by(name: 'Clackskids', oe_id: 'clackskids')
