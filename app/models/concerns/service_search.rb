@@ -48,11 +48,19 @@ module ServiceSearch
       where(status: param)
     end
 
-    def allowed_params(params)
-      params.slice(:keyword, :status)
+    def min_age(param)
+      Service.where('min_age >= ?', param)
     end
 
-    #TODO: add age search, day search
+    def max_age(param)
+      Service.where('max_age <= ?', param)
+    end
+
+    def allowed_params(params)
+      params.slice(:keyword, :status, )
+    end
+
+    #TODO: day search
 
   end
 end
