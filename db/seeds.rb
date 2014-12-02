@@ -49,3 +49,9 @@ admin3.save
 =end
 
 c = Category.find_or_create_by(name: 'Clackskids', oe_id: 'clackskids')
+["Childcare", "Clubs", "Sport", "Support", "Health", "Voluntary",
+  "Prenatal & Babies", "Music & Drama"].each do |name|
+  child = Category.find_or_create_by(name: name, oe_id: name.parameterize)
+  child.parent = c
+  child.save
+end
