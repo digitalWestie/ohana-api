@@ -75,4 +75,9 @@ var main = (function () {
 
 $(document).ready(function(){
   main.init();
+  //select clackskids category by default if unchecked
+  if (!$('#category_clackskids').prop('checked')){
+    $('#category_clackskids').trigger('click');
+  }
 });
+
