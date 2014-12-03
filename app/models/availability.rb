@@ -3,7 +3,7 @@ class Availability < ActiveRecord::Base
   belongs_to :service
   belongs_to :location
 
-  validates :service_id , presence: true
+  validates :service_id , presence: true, on: :update
   validates :location_id, uniqueness: {scope: :service_id}, presence: true
 
   has_many :regular_schedules, dependent: :destroy
