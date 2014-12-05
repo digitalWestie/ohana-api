@@ -58,6 +58,13 @@ module ServiceSearch
     end
 
     def allowed_params(params)
+      age_range = ""
+      age_range ||= params.delete(:age_range)
+      age_range = age_range.split(',')
+      if age_range.size.eql?(2)
+        params[:min_age] = age_range[0]
+        params[:max_age] = age_range[1]
+      end
       params.slice(:keyword, :activity, :min_age, :max_age, :weekdays)
     end
 
