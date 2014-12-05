@@ -64,6 +64,7 @@ Rails.application.routes.draw do
 
         resources :search, only: :index
         get 'search/services', to: 'search#services', as: :search_services
+        get 'services/:id', to: 'services#show'
 
         resources :categories, only: :index
 
