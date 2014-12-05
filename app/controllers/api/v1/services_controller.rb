@@ -14,6 +14,11 @@ module Api
         render json: services, status: 200
       end
 
+      def show
+        service = Service.find(params[:id])
+        render json: service, status: 200
+      end
+
       def update
         service = Service.find(params[:id])
         service.update!(params)
