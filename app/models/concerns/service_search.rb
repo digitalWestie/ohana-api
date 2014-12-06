@@ -65,7 +65,7 @@ module ServiceSearch
         params[:min_age] = age_range[0]
         params[:max_age] = age_range[1]
       end
-      params.slice(:keyword, :activity, :min_age, :max_age, :weekdays, :org_name)
+      params.slice(:keyword, :activity, :min_age, :max_age, :weekdays, :org_name, :category)
     end
 
   end
