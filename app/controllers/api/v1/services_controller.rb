@@ -16,7 +16,7 @@ module Api
 
       def show
         service = Service.find(params[:id])
-        render json: service, status: 200
+        render json: service, serializer: ServicesSerializer, status: 200
       end
 
       def update
