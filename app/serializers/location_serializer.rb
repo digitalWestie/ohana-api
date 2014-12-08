@@ -1,8 +1,6 @@
 class LocationSerializer < BasicLocationSerializer
   attributes :urls, :url
 
-  has_many :contacts
-  has_one :mail_address
   has_many :services, each_serializer: ServiceSerializer
   has_many :regular_schedules
   has_many :holiday_schedules

@@ -6,6 +6,8 @@ class BasicLocationSerializer < ActiveModel::Serializer
 
   has_one :address
   has_many :phones
+  has_many :contacts
+  has_one :mail_address
 
   def accessibility
     object.accessibility.map(&:text)
