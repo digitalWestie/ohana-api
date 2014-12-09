@@ -57,6 +57,10 @@ module ServiceSearch
       Service.where('min_age <= ?', max)
     end
 
+    def is_paid
+      where(fees: [nil, '', 'N/A', 'Free'])
+    end
+
     def allowed_params(params)
       age_range = params.delete(:age_range)
       age_range ||= ""
@@ -65,7 +69,8 @@ module ServiceSearch
         params[:min_age] = age_range[0]
         params[:max_age] = age_range[1]
       end
-      params.slice(:keyword, :activity, :min_age, :max_age, :weekdays, :org_name, :category)
+      params.delete(:is_paid) if params[:is_paid].blank?
+      params.slice(:keyword, :activity, :min_age, :max_age, :weekdays, :org_name, :category, :is_paid)
     end
 
   end
