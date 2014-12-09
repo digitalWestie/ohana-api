@@ -3,5 +3,15 @@
     = f.label :fees, 'Fees'
     %p.desc
       Are there any fees to receive this service?
+
+  - has_fee = !(["", nil, "N/A", "Free"].include?(f.object.fees))
+
   %p
-    = f.text_area :fees, class: 'form-control'
+    = label_tag 'has_fee_true', 'Yes, there is a fee for this service'
+    = radio_button_tag 'has_fee', true,  has_fee
+    %br
+    = label_tag 'has_fee_false', 'No, this is a free service', style: ""
+    = radio_button_tag 'has_fee', false, !has_fee
+
+  %p{ id: "fees-para" }
+    = f.text_area :fees, class: 'form-control', placeholder: "Description of fees e.g. £10 per session"
