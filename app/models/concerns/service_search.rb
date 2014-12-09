@@ -57,8 +57,8 @@ module ServiceSearch
       Service.where('min_age <= ?', max)
     end
 
-    def is_paid
-      where(fees: [nil, '', 'N/A', 'Free'])
+    def is_paid(param)
+      where.not(fees: [nil, '', 'N/A', 'Free']) if param
     end
 
     def allowed_params(params)
