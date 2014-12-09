@@ -58,7 +58,7 @@ module ServiceSearch
     end
 
     def is_paid(param)
-      where.not(fees: [nil, '', 'N/A', 'Free']) if param
+      where.not(fees: [nil, '', 'N/A', 'Free']) if param.eql?(true) or param.eql?("true")
     end
 
     def allowed_params(params)
@@ -69,7 +69,6 @@ module ServiceSearch
         params[:min_age] = age_range[0]
         params[:max_age] = age_range[1]
       end
-      params.delete(:is_paid) if params[:is_paid].blank?
       params.slice(:keyword, :activity, :min_age, :max_age, :weekdays, :org_name, :category, :is_paid)
     end
 
