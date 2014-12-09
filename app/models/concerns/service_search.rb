@@ -26,12 +26,15 @@ module ServiceSearch
     require 'exceptions'
 
     def search(params = {})
+      search_relation = text_search(params)
       if params[:location].present? or params[:lat_lng].present?
         result = is_near(params[:location], params[:lat_lng], params[:radius]).select(:id)
-        text_search(params).where(id: result).uniq
-      else
-        text_search(params).uniq
+        search_relation = search_relation.where(id: result)
       end
+      if params[:is_paid].eql?(true) or params[:is_paid].eql?("true")
+        search_relation = search_relation.is_paid
+      end
+      search_relation.uniq
     end
 
     def text_search(params = {})
@@ -57,8 +60,8 @@ module ServiceSearch
       Service.where('min_age <= ?', max)
     end
 
-    def is_paid(param)
-      where.not(fees: [nil, '', 'N/A', 'Free']) if param.eql?(true) or param.eql?("true")
+    def is_paid
+      where.not(fees: [nil, '', 'N/A', 'Free'])
     end
 
     def allowed_params(params)
@@ -69,7 +72,7 @@ module ServiceSearch
         params[:min_age] = age_range[0]
         params[:max_age] = age_range[1]
       end
-      params.slice(:keyword, :activity, :min_age, :max_age, :weekdays, :org_name, :category, :is_paid)
+      params.slice(:keyword, :activity, :min_age, :max_age, :weekdays, :org_name, :category)
     end
 
   end
