@@ -5,5 +5,6 @@ Geocoder.configure(
     Geocoder::RequestDenied,
     Geocoder::InvalidRequest,
     Geocoder::InvalidApiKey
-  ]
+  ],
+  units: :m
 )
