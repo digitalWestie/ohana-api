@@ -12,6 +12,11 @@
 
   = hidden_field_tag "service[availabilities_attributes][#{location.id}][location_id]", location.id
 
+  %p
+    = label_tag "service[availabilities_attributes][#{location.id}][notes]", "Notes"
+    <br/>
+    = text_field_tag "service[availabilities_attributes][#{location.id}][notes]", availability.notes, placeholder: "Notes about availability here e.g. 'Booking ahead is required'", class: "form-control", maxlength:150
+
   - if availability.new_record?
     %p
       You will be able to add hours of operation & holiday schedules once you save these changes.
