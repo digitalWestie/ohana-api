@@ -36,6 +36,9 @@ class Organization < ActiveRecord::Base
   serialize :admin_emails, Array
   auto_strip_attributes :admin_emails, reject_blank: true, nullify: false
 
+  include PgSearch
+  pg_search_scope :search_admins, :against => :admin_emails
+
   private
 
   def touch_locations

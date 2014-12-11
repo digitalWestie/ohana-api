@@ -10,8 +10,9 @@ class Admin
       if admin.super_admin?
         Location.pluck(:id, :name, :slug)
       else
+        organizations = orgs.collect {|o| o.id }
         Location.joins(:organization).
-          where('organization_id IN (?)', orgs.map(&:first).flatten).
+          where('organization_id IN (?)', organizations).
           uniq.pluck(:id, :name, :slug)
       end
     end
@@ -20,7 +21,7 @@ class Admin
       if admin.super_admin?
         Organization.pluck(:id, :name, :slug)
       else
-        Organization.text_search(email: admin.email).pluck(:id, :name, :slug)
+        Organization.search_admins(admin.email).uniq
       end
     end
 
@@ -28,8 +29,9 @@ class Admin
       if admin.super_admin?
         Program.pluck(:id, :name)
       else
+        organizations = orgs.collect {|o| o.id }
         Program.joins(:organization).
-          where('organization_id IN (?)', orgs.map(&:first).flatten).
+          where('organization_id IN (?)', organizations).
           uniq.pluck(:id, :name)
       end
     end
@@ -38,8 +40,9 @@ class Admin
       if admin.super_admin?
         Service.pluck(:organization_id, :id, :name)
       else
+        organizations = orgs.collect {|o| o.id }
         Service.joins(:organization).
-          where('organization_id IN (?)', orgs.map(&:first).flatten).
+          where('organization_id IN (?)', organizations).
           uniq.pluck(:organization_id, :id, :name)
       end
     end
