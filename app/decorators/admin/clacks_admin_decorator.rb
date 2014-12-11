@@ -18,10 +18,10 @@ class Admin
 
     def orgs
       if admin.super_admin?
-        Organization.pluck(:id, :name, :slug)
+        Organization.pluck(:id, :name, :slug, :is_approved)
       else
         ids = Organization.search_admins(admin.email).uniq.collect {|o| o.id}
-        Organization.where(id: ids).pluck(:id, :name, :slug)
+        Organization.where(id: ids).pluck(:id, :name, :slug, :is_approved)
       end
     end
 

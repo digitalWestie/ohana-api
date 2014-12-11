@@ -9,11 +9,17 @@
     = link_to t(:Service).pluralize, admin_services_path, class: 'btn btn-primary'
   %p
     = link_to t(:Program).pluralize, admin_programs_path, class: 'btn btn-primary'
+  %p
+    = link_to "Add a new #{t('organization')}", new_admin_organization_path, class: 'btn btn-primary'
 
   - if current_admin.super_admin?
     %p
       = link_to "Add a new #{t('location')}", new_admin_location_path, class: 'btn btn-primary'
     %p
       = link_to "Add a new #{t('program')}", new_admin_program_path, class: 'btn btn-primary'
-  %p
-    = link_to "Add a new #{t('organization')}", new_admin_organization_path, class: 'btn btn-primary'
+    %hr
+
+    - unless @unapproved_orgs.eql?(0)
+      %p.alert
+        #{@unapproved_orgs} unapproved organisation(s)!
+

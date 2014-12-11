@@ -13,4 +13,6 @@
   - @orgs.each do |org|
     %ul
       = link_to org.second, edit_admin_organization_path(org.third)
+      = content_tag :span, "(Unapproved)", title: "An admin has not yet approved this organisation.", style: "font-size:0.8em; color:firebrick;" unless org.fourth
+
   = paginate @orgs
