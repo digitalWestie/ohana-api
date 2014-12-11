@@ -3,7 +3,7 @@ class Organization < ActiveRecord::Base
 
   attr_accessible :accreditations, :admin_emails, :alternate_name, :date_incorporated,
                   :description, :email, :funding_sources, :legal_status,
-                  :licenses, :name, :tax_id, :tax_status, :website
+                  :licenses, :name, :tax_id, :tax_status, :website, :is_approved
 
   has_many :locations, dependent: :destroy
   has_many :programs, dependent: :destroy
@@ -38,6 +38,14 @@ class Organization < ActiveRecord::Base
 
   include PgSearch
   pg_search_scope :search_admins, :against => :admin_emails
+
+  def self.unapproved
+    where(is_approved:false)
+  end
+
+  def self.approved
+    where(is_approved:true)
+  end
 
   private
 
