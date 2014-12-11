@@ -47,12 +47,7 @@ class Admin
     end
 
     def new
-      unless current_admin.super_admin?
-        redirect_to admin_dashboard_path,
-                    alert: "Sorry, you don't have access to that page."
-      end
-
-      @organization = Organization.new
+      @organization = Organization.new(is_approved: current_admin.super_admin?)
     end
 
     def create
@@ -68,6 +63,7 @@ class Admin
                         notice: 'Organization was successfully created.'
           end
         else
+          @organization.is_approved = current_admin.super_admin?
           format.html { render :new }
         end
       end
