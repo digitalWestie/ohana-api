@@ -4,6 +4,7 @@ module Search
   included do
     scope :keyword, ->(keyword) { keyword_search(keyword) }
     scope :category, ->(category) { joins(services: :categories).where(categories: { name: category }) }
+    scope :approved, ->{ joins(:organization).where(organizations: { is_approved: true }) }
 
     scope :is_near, (lambda do |loc, lat_lng, r|
       if loc.present?
