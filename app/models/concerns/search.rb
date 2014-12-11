@@ -4,7 +4,7 @@ module Search
   included do
     scope :keyword, ->(keyword) { keyword_search(keyword) }
     scope :category, ->(category) { joins(services: :categories).where(categories: { name: category }) }
-    scope :approved, ->{ joins(:organization).where(organizations: { is_approved: true }) }
+    scope :approved, ->(approval) { joins(:organization).where(organizations: { is_approved: approval }) }
 
     scope :is_near, (lambda do |loc, lat_lng, r|
       if loc.present?
@@ -76,8 +76,11 @@ module Search
     end
 
     def search(params = {})
+      approval = true
+      approval = false if params[:approved].eql?("false")
+
       text_search(params).
-        is_near(params[:location], params[:lat_lng], params[:radius]).
+        is_near(params[:location], params[:lat_lng], params[:radius]).approved(approval).
         uniq
     end
 

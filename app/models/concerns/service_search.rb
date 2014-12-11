@@ -9,7 +9,7 @@ module ServiceSearch
       joins(:organization).where('organizations.name @@ :q', q: org)
     end)
 
-    scope :approved, ->{ joins(:organization).where(organizations: { is_approved: true }) }
+    scope :approved, ->(approval) { joins(:organization).where(organizations: { is_approved: approval }) }
 
     include PgSearch
     pg_search_scope :keyword_search,
@@ -37,7 +37,9 @@ module ServiceSearch
         search_relation = search_relation.is_paid
       end
 
-      search_relation.approved.uniq
+      approval = true
+      approval = false if params[:approved].eql?("false")
+      search_relation.approved(approval).uniq
     end
 
     def text_search(params = {})
