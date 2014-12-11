@@ -1,4 +1,14 @@
 .content-box
   %h2= @organization.name
 = form_for [:admin, @organization], html: { class: 'edit_entry' } do |f|
+
+  - if current_admin.super_admin
+    .inst-box
+      %header
+        = f.label :is_approved, 'Approval'
+        %span.desc
+          This will make the group/organisation's services appear externally (e.g. on the API or Clackskids)
+      = field_set_tag do
+        = f.select :is_approved, [[ "Approved", true ], [ "Unapproved", false ]], :selected => f.object.is_approved
+
   = render 'admin/organizations/form', f: f
