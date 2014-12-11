@@ -47,7 +47,7 @@ class Admin
     end
 
     def new
-      @organization = Organization.new(is_approved: current_admin.super_admin?)
+      @organization = Organization.new()
     end
 
     def create
@@ -55,6 +55,7 @@ class Admin
         params[:organization], :accreditations, :funding_sources, :licenses)
 
       @organization = Organization.new(params[:organization])
+      @organization.is_approved = current_admin.super_admin?
 
       respond_to do |format|
         if @organization.save
@@ -63,7 +64,6 @@ class Admin
                         notice: 'Organization was successfully created.'
           end
         else
-          @organization.is_approved = current_admin.super_admin?
           format.html { render :new }
         end
       end
