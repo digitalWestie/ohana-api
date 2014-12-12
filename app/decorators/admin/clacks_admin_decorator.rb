@@ -16,13 +16,17 @@ class Admin
       end
     end
 
-    def orgs
+    def orgs_relation
       if admin.super_admin?
-        Organization.pluck(:id, :name, :slug, :is_approved)
+        Organization
       else
         ids = Organization.search_admins(admin.email).uniq.collect {|o| o.id}
-        Organization.where(id: ids).pluck(:id, :name, :slug, :is_approved)
+        Organization.where(id: ids)
       end
+    end
+
+    def orgs
+      orgs_relation.pluck(:id, :name, :slug, :is_approved)
     end
 
     def programs
