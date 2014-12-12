@@ -57,6 +57,17 @@ class Admin
       end
     end
 
+    def org_autocomplete_tag_for(admin_decorator)
+      if admin_decorator.admin.super_admin?
+        hidden_field_tag(:organization_id, '', id: 'org-name', class: 'form-control', data: {
+          'ajax-url' => admin_organizations_url,
+          'placeholder' => 'Choose an organization'
+        })
+      else
+        select_tag :organization_id, options_for_select(admin.orgs.map { |org| [org.second, org.first] }), class: 'form-control'
+      end
+    end
+
     def program_autocomplete_field_for(f)
       f.select(
         :program_id, @organization.programs.pluck(:name, :id),
