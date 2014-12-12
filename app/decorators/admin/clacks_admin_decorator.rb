@@ -39,8 +39,9 @@ class Admin
       if admin.super_admin?
         Service.pluck(:organization_id, :id, :name)
       else
+        services = Service.email(admin.email).pluck(:id)
         Service.joins(:organization).
-          where('organization_id IN (?)', orgs.map(&:first).flatten).
+          where('services.organization_id IN (?) or services.id IN (?)', orgs.map(&:first).flatten, services).
           uniq.pluck(:organization_id, :id, :name)
       end
     end
