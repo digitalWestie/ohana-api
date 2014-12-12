@@ -642,7 +642,7 @@ CREATE TABLE services (
     max_age integer DEFAULT 100,
     min_age integer DEFAULT 0,
     search_vector tsvector,
-    admin_email text
+    admin_emails text
 );
 
 
