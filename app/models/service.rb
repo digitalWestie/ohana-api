@@ -4,7 +4,7 @@ class Service < ActiveRecord::Base
                   :keywords, :languages, :name, :required_documents,
                   :service_areas, :status, :website, :wait, :category_ids,
                   :regular_schedules_attributes, :holiday_schedules_attributes,
-                  :availabilities_attributes, :min_age, :max_age
+                  :availabilities_attributes, :min_age, :max_age, :admin_emails
 
   has_many :availabilities, dependent: :destroy
   has_many :locations, through: :availabilities
@@ -34,17 +34,19 @@ class Service < ActiveRecord::Base
   validates :service_areas, array: { service_area: true }
 
   validates :website, url: true, allow_blank: true
+  validates :admin_emails, array: { email: true }
 
   auto_strip_attributes :alternate_name, :audience, :description, :eligibility,
                         :email, :fees, :how_to_apply, :name, :wait, :status,
                         :website
 
-  auto_strip_attributes :funding_sources, :keywords, :service_areas,
+  auto_strip_attributes :funding_sources, :keywords, :service_areas, :admin_emails,
                         reject_blank: true, nullify: false
 
   serialize :funding_sources, Array
   serialize :keywords, Array
   serialize :service_areas, Array
+  serialize :admin_emails, Array
 
   include PgSearch
   pg_search_scope :search_keywords, :against => [:description, :keywords]

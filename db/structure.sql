@@ -641,7 +641,8 @@ CREATE TABLE services (
     organization_id integer,
     max_age integer DEFAULT 100,
     min_age integer DEFAULT 0,
-    search_vector tsvector
+    search_vector tsvector,
+    admin_email text
 );
 
 
@@ -1428,4 +1429,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141125175711');
 INSERT INTO schema_migrations (version) VALUES ('20141210153744');
 
 INSERT INTO schema_migrations (version) VALUES ('20141210230715');
+
+INSERT INTO schema_migrations (version) VALUES ('20141212183637');
 
