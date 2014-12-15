@@ -76,6 +76,11 @@ module ServiceSearch
       where.not(fees: [nil, '', 'N/A', 'Free'])
     end
 
+    def category_ancestor(ancestor)
+      ancestry = Category.where(categories: { name: ancestor }).pluck(:id).map { |id| id.to_s }
+      joins(:categories).where(categories: { ancestry: ancestry })
+    end
+
     def allowed_params(params)
       age_range = params.delete(:age_range)
       age_range ||= ""
@@ -84,7 +89,7 @@ module ServiceSearch
         params[:min_age] = age_range[0]
         params[:max_age] = age_range[1]
       end
-      params.slice(:keyword, :activity, :min_age, :max_age, :weekdays, :org_name, :category)
+      params.slice(:keyword, :activity, :min_age, :max_age, :weekdays, :org_name, :category, :category_ancestor)
     end
 
   end
