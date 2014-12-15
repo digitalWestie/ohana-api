@@ -18,6 +18,7 @@
 # Ignore application configuration
 /config/application.yml
 /config/config.yml
+/config/initializers/rory.rb
 
 # Redis DB
 dump.rdb
