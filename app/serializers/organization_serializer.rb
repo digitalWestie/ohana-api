@@ -1,7 +1,7 @@
 class OrganizationSerializer < ActiveModel::Serializer
   attributes :id, :accreditations, :alternate_name, :date_incorporated,
              :description, :email, :funding_sources, :licenses, :name, :slug,
-             :website, :issue_emails, :url, :locations_url
+             :website, :admin_emails, :url, :locations_url
 
   def url
     api_organization_url(object)
@@ -11,7 +11,4 @@ class OrganizationSerializer < ActiveModel::Serializer
     api_org_locations_url(object)
   end
 
-  def issue_emails
-    object.admin_emails
-  end
 end
