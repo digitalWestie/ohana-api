@@ -1,0 +1,6 @@
+<h2>A new organisation has been created on <%= link_to 'Clacks-Ohana', root_url %></h2>
+
+<p><b><%= @organization.name %></b> - created <%= @organization.created_at.strftime('%d %B %Y') %>.<br/>
+Administered by <%= @organization.admin_emails.to_sentence %>.</p>
+
+<p>You will need to approve the organisation before the organisation's services will be available.</p>

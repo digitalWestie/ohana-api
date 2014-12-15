@@ -1,0 +1,6 @@
+A new organisation has been created on <%= link_to 'Clacks-Ohana', root_url %>
+
+<%= @organization.name %> - created <%= @organization.created_at.strftime('%d %B %Y') %>.
+Administered by <%= @organization.admin_emails.to_sentence %>.
+
+You will need to approve the organisation before the organisation's services will be available.
