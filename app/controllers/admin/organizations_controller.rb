@@ -59,9 +59,9 @@ class Admin
 
       respond_to do |format|
         if @organization.save
+          NotificationsMailer.new_org_created(@organization).deliver unless @organization.is_approved
           format.html do
-            redirect_to admin_organizations_url,
-                        notice: 'Organization was successfully created.'
+            redirect_to admin_organizations_url, notice: 'Organization was successfully created.'
           end
         else
           format.html { render :new }
