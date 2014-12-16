@@ -24,7 +24,7 @@ gem 'select2-rails'
 gem 'unicorn'
 
 # Geocoding
-gem 'geocoder'
+gem 'geocoder', '1.2.4'
 
 # CORS support
 gem 'rack-cors', require: 'rack/cors'
