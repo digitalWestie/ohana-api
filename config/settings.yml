@@ -204,7 +204,7 @@ confirmation_email: giannichan@gmail.com
 # Make sure to change the coordinates to match your preferred search area.
 #
 # This setting is used in 'app/models/concerns/search.rb'.
-bounds: [[56.057801, -3.988724], [56.199396, -3.56987]]
+bounds: [[56.0009, -3.988724], [56.199396, -3.46]]
 
 ###########################################
 #
