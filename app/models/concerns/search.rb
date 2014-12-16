@@ -1,21 +1,20 @@
+require 'location_filter'
+
 module Search
   extend ActiveSupport::Concern
 
   included do
+
+    def nearbys(radius)
+      r = LocationFilter.new(self.class).validated_radius(radius, 0.5)
+      super(r)
+    end
+
     scope :keyword, ->(keyword) { keyword_search(keyword) }
     scope :category, ->(category) { joins(services: :categories).where(categories: { name: category }) }
     scope :approved, ->(approval) { joins(:organization).where(organizations: { is_approved: approval }) }
 
-    scope :is_near, (lambda do |loc, lat_lng, r|
-      if loc.present?
-        result = Geocoder.search(loc, bounds: SETTINGS[:bounds])
-        coords = result.first.coordinates if result.present?
-        near(coords, validated_radius(r, 5))
-      elsif lat_lng.present?
-        coords = validated_coordinates(lat_lng)
-        near(coords, validated_radius(r, 5))
-      end
-    end)
+    scope :is_near, LocationFilter.new(self)
 
     scope :org_name, (lambda do |org|
       joins(:organization).where('organizations.name @@ :q', q: org)
