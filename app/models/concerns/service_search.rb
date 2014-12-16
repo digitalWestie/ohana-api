@@ -12,7 +12,7 @@ module ServiceSearch
     scope :approved, ->(approval) { joins(:organization).where(organizations: { is_approved: approval }) }
 
     scope :email, (lambda do |email|
-      return Location.none unless email.include?('@')
+      return Service.none unless email.include?('@')
       domain = email.split('@').last
       services = Service.arel_table
       Service.where(services[:admin_emails].matches("%#{email}%"))
