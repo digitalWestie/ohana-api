@@ -14,6 +14,10 @@ Rails.application.routes.draw do
     namespace :admin, path: ENV['ADMIN_PATH'] do
       root to: 'dashboard#index', as: :dashboard
 
+      get "admin_users" => "admins#index", as: :admin_users
+      put "admin_users" => "admins#update_all", as: :update_admin_users
+      delete "admin_users/:id" => "admins#destroy", as: :admin_user
+
       resources :locations, except: :show do
         resources :contacts, except: [:show, :index]
       end

@@ -9,4 +9,10 @@ class Admin < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
+
+  def relevant_organisations
+    ids = Organization.search_admins(self.email).uniq.collect {|o| o.id}
+    Organization.where(id: ids)
+  end
+
 end

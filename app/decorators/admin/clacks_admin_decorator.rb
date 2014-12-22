@@ -20,8 +20,7 @@ class Admin
       if admin.super_admin?
         Organization
       else
-        ids = Organization.search_admins(admin.email).uniq.collect {|o| o.id}
-        Organization.where(id: ids)
+        admin.relevant_organisations
       end
     end
 
