@@ -34,6 +34,24 @@ class Admin
       end.join.html_safe
     end
 
+    def display_categories(categories)
+      cats = []
+      categories.each do |array|
+        cats.push([array.first, array.second])
+      end
+
+      cats.map do |category, sub_categories|
+        class_name = category.depth == 0 ? 'depth0' : "depth#{category.depth}"
+
+        content_tag(:ul) do
+          concat(content_tag(:li, class: class_name) do
+            concat(label_tag "category_#{category.oe_id}", category.name)
+            concat(display_categories(sub_categories))
+          end)
+        end
+      end.join.html_safe
+    end
+
     def error_class_for(model, attribute, field)
       return if model.errors[attribute].blank?
       'field_with_errors' if field_contains_errors?(model, attribute, field)

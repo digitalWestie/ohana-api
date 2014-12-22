@@ -18,6 +18,8 @@ Rails.application.routes.draw do
       put "admin_users" => "admins#update_all", as: :update_admin_users
       delete "admin_users/:id" => "admins#destroy", as: :admin_user
 
+      resources :categories, except: [:show]
+
       resources :locations, except: :show do
         resources :contacts, except: [:show, :index]
       end
