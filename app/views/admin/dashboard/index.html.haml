@@ -13,10 +13,14 @@
     = link_to "Add a new #{t('organization')}", new_admin_organization_path, class: 'btn btn-primary'
 
   - if current_admin.super_admin?
+
     %p
       = link_to "Add a new #{t('location')}", new_admin_location_path, class: 'btn btn-primary'
     %p
       = link_to "Add a new #{t('program')}", new_admin_program_path, class: 'btn btn-primary'
+    %p
+      = link_to "Manage admin users", admin_admin_users_path, class: 'btn btn-primary'
+
     %hr
 
     - unless @unapproved_orgs.eql?(0)

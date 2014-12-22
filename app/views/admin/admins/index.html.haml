@@ -1,4 +1,6 @@
 %h1 Admin Users
+%p
+  = link_to 'Back to dashboard', admin_dashboard_path
 
 = form_tag admin_update_admin_users_path, :method => :put do
   %p{ style:"text-align:right;" }
