@@ -1,0 +1,17 @@
+%h1 Edit Category
+
+= form_for @category, url: admin_category_path(@category) do |f|
+  %p
+    = f.label :name
+    = f.text_field :name
+  %p
+    = f.label :oe_id
+    = f.text_field :oe_id
+  %p
+    = f.label :parent
+  %p
+    = f.submit "Save"
+
+<hr/>
+%p
+  = link_to 'Delete', admin_category_path(@category), method: :destroy, data: {confirm: "Are you sure?"}, class: "btn btn-danger"

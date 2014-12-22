@@ -34,7 +34,7 @@ class Admin
       end.join.html_safe
     end
 
-    def display_categories(categories)
+    def categories_for_management(categories)
       cats = []
       categories.each do |array|
         cats.push([array.first, array.second])
@@ -45,8 +45,8 @@ class Admin
 
         content_tag(:ul) do
           concat(content_tag(:li, class: class_name) do
-            concat(label_tag "category_#{category.oe_id}", category.name)
-            concat(display_categories(sub_categories))
+            concat(link_to category.name, edit_admin_category_path(category))
+            concat(categories_for_management(sub_categories))
           end)
         end
       end.join.html_safe
