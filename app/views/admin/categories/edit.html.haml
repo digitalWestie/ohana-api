@@ -1,14 +1,9 @@
 %h1 Edit Category
-
+<br/>
 = form_for @category, url: admin_category_path(@category) do |f|
-  %p
-    = f.label :name
-    = f.text_field :name
-  %p
-    = f.label :oe_id
-    = f.text_field :oe_id
-  %p
-    = f.label :parent
+
+  = render 'form', f: f
+
   %p
     = f.submit "Save"
 

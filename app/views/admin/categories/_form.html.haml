@@ -1,0 +1,20 @@
+.inst-box
+  %header
+    = f.label :name
+    %p.desc
+      The name of the category
+  %p= f.text_field :name, class: 'form-control'
+
+.inst-box
+  %header
+    = f.label :oe_id, "Specification ID"
+    %p.desc
+      An optional id to refer to a set taxonomy e.g. #{link_to "the Open Eligibility taxonomy", 'http://openeligibility.org/'}.
+  %p= f.text_field :oe_id, class: 'form-control'
+
+.inst-box
+  %header
+    = f.label :ancestry, "Parent"
+    %p.desc
+      The parent category of the category. Leave blank to make it top level.
+  %p= f.select :ancestry, @categories, include_blank: true, class: 'form-control'
