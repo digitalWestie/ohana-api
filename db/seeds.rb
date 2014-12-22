@@ -48,10 +48,14 @@ admin3.super_admin = true
 admin3.save
 =end
 
-c = Category.find_or_create_by(name: 'Clackskids', oe_id: 'clackskids')
+display = Category.find_or_create_by(name: 'Display/Apps', oe_id: 'display/apps')
+clackskids = Category.find_or_create_by(name: 'Clackskids', oe_id: 'clackskids')
+clackskids.parent = display
+clackskids.save
+
 ["Childcare", "Clubs", "Sport", "Support", "Health", "Learning",
   "Prenatal & Babies", "Music & Drama"].each do |name|
   child = Category.find_or_create_by(name: name, oe_id: name.parameterize)
-  child.parent = c
+  child.ancestry = nil
   child.save
 end
