@@ -1,11 +1,13 @@
 %h1 Edit Category
+%p= link_to "Back to categories", admin_categories_path
+
 <br/>
 = form_for @category, url: admin_category_path(@category) do |f|
 
   = render 'form', f: f
 
   %p
-    = f.submit "Save"
+    = f.submit "Save", class: "btn"
 
 <hr/>
 %p
