@@ -36,12 +36,18 @@ module ServiceSearch
 
     def search(params = {})
       search_relation = text_search(params)
+
       if params[:location].present? or params[:lat_lng].present?
         result = is_near(params[:location], params[:lat_lng], params[:radius]).select(:id)
         search_relation = search_relation.where(id: result)
       end
+
       if params[:is_paid].eql?(true) or params[:is_paid].eql?("true")
         search_relation = search_relation.is_paid
+      end
+
+      if params[:prerequisite_category]
+        search_relation = prerequisite_category(search_relation, params[:prerequisite_category])
       end
 
       approval = true
@@ -79,6 +85,10 @@ module ServiceSearch
     def category_ancestor(ancestor)
       ancestry = Category.where(categories: { name: ancestor }).pluck(:id).map { |id| id.to_s }
       joins(:categories).where(categories: { ancestry: ancestry })
+    end
+
+    def prerequisite_category(results, prerequisite)
+      where(id: results.pluck(:id)).category(prerequisite)
     end
 
     def allowed_params(params)
