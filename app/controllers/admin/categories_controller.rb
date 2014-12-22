@@ -24,6 +24,24 @@ class Admin::CategoriesController < ApplicationController
     end
   end
 
+  def new
+    @category = Category.new
+  end
+
+  def create
+    @category = Category.new(params[:category])
+    respond_to do |format|
+      params[:category][:ancestry] = nil if params[:category][:ancestry].eql?("")
+      if @category.save
+        format.html do
+          redirect_to admin_categories_path, notice: 'Category was successfully created.'
+        end
+      else
+        format.html { render :new }
+      end
+    end
+  end
+
   def destroy
     @category = Category.find(params[:id])
     @category.destroy
