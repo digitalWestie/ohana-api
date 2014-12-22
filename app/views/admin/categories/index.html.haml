@@ -2,3 +2,7 @@
   Manage Categories
 
 = categories_for_management(Category.arrange(order: :oe_id))
+
+%hr
+
+= link_to 'Add a category', new_admin_category_path, class: "btn"

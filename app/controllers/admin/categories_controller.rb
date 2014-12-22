@@ -26,12 +26,13 @@ class Admin::CategoriesController < ApplicationController
 
   def new
     @category = Category.new
+    @categories = Category.pluck(:name, :id)
   end
 
   def create
+    params[:category][:ancestry] = nil if params[:category][:ancestry].eql?("")
     @category = Category.new(params[:category])
     respond_to do |format|
-      params[:category][:ancestry] = nil if params[:category][:ancestry].eql?("")
       if @category.save
         format.html do
           redirect_to admin_categories_path, notice: 'Category was successfully created.'
