@@ -63,6 +63,11 @@ class Service < ActiveRecord::Base
   # See app/models/concerns/service_search.rb
   include ServiceSearch
 
+  def self.duplicate(duplicate_id)
+    service = find(duplicate_id)
+    service.try(:dup)
+  end
+
   private
 
   def update_location_statuses

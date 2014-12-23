@@ -67,7 +67,9 @@ class Admin
       @availabilities = []
       @unassociated_locations = @organization.locations.select(:name, :id)
       @preselected_locations  = Location.where(id: params[:with_location]).pluck(:id)
-      @service = Service.new
+
+      @service = Service.duplicate(params[:duplicate]) if params[:duplicate].present?
+      @service = Service.new if @service.nil?
     end
 
     def create
