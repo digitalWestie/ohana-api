@@ -7,4 +7,12 @@ class Category < ActiveRecord::Base
             presence: { message: I18n.t('errors.messages.blank_for_category') }
 
   has_ancestry
+
+  def self.top_with_children
+    where(id: where.not(ancestry: nil).pluck(:ancestry)).where(ancestry:nil)
+  end
+
+  def self.top_without_children
+    where.not(id: where.not(ancestry: nil).pluck(:ancestry)).where(ancestry:nil)
+  end
 end
