@@ -48,7 +48,7 @@ admin3.super_admin = true
 admin3.save
 =end
 
-display = Category.find_or_create_by(name: 'Display/Apps', oe_id: 'display/apps')
+display = Category.find_or_create_by(name: 'Display & Apps', oe_id: 'display & apps'.parameterize)
 clackskids = Category.find_or_create_by(name: 'Clackskids', oe_id: 'clackskids')
 clackskids.parent = display
 clackskids.save
