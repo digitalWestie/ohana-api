@@ -158,14 +158,7 @@ To access the developer portal, visit [http://localhost:8080/](http://localhost:
 
 To access the admin interface, visit [http://localhost:8080/admin/](http://localhost:8080/admin/).
 
-The app automatically sets up users and admins you can sign in with.
-Their username and password are stored in [db/seeds.rb][seeds].
-
-[seeds]: https://github.com/codeforamerica/ohana-api/blob/master/db/seeds.rb
-
-The third admin in the seeds file is automatically set as a Super Admin. If you
-would like to set additional admins as super admins, you will need to do it
-manually for security reasons.
+If you would like to set admins as super admins, you can do it manually.
 
 To set an admin as a Super Admin:
 
