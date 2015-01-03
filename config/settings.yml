@@ -46,6 +46,8 @@ admin_support_email: giannichan@gmail.com
 # departments, and should only be able to access their specific locations.
 #
 # This setting is used in 'app/models/concerns/search.rb'.
+#
+# THIS SETTING IS NOT USED FOR AUTHORIZATION IN CLACKS OHANA API
 generic_domains:
   - gmail.com
   - aol.com
