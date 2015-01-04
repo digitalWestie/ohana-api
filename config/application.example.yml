@@ -192,6 +192,10 @@ production:
   EXPIRES_IN: '5'
   TLD_LENGTH: '2'
   ENABLE_HTTPS: yes
+  DEVISE_SECRET_KEY: 'bd80dd4d37ba58c66f1c01c8f66a2e1af5afd5dda6660bc3d278c61bb9a67ca46a1ad16fe2656eef08a94aefc9d4fbcf3820cbba811778d188fedb37072bf6c5'
+
+# YOU MUST REPLACE THE ABOVE SECRET KEY WITH A NEW ONE,
+# Use 'rake secret' to generate a key.
 
 ###########################################
 #
