@@ -24,3 +24,5 @@ test:
 production:
   <<: *default
   database: ohana_api_production
+  username: ohana_api
+  password: ohana_api
