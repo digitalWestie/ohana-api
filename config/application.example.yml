@@ -167,12 +167,19 @@
 ###########################
 development:
   API_SUBDOMAIN:
-  API_PATH: api
+  API_PATH: 'api'
   ADMIN_SUBDOMAIN:
-  ADMIN_PATH: admin
+  ADMIN_PATH: 'admin'
   DEV_SUBDOMAIN:
   DEFAULT_PER_PAGE: '30'
   MAX_PER_PAGE: '50'
+  SMTP_PORT: '587'
+  SMTP_ADDRESS: 'smtp.servername.com'
+  SMTP_DOMAIN: 'servername.com'
+  SMTP_USER_NAME: 'username'
+  SMTP_PASSWORD: 'password'
+  SMTP_AUTHENTICATION: 'plain'
+  DEFAULT_HOST: '127.0.0.1:3000'
 
 ###############################################################################
 #
@@ -183,9 +190,9 @@ development:
 ###############################################################################
 production:
   API_SUBDOMAIN:
-  API_PATH: api
+  API_PATH: 'api'
   ADMIN_SUBDOMAIN:
-  ADMIN_PATH: admin
+  ADMIN_PATH: 'admin'
   DEV_SUBDOMAIN:
   DEFAULT_PER_PAGE: '30'
   MAX_PER_PAGE: '50'
@@ -194,6 +201,13 @@ production:
   ENABLE_HTTPS: yes
   DEVISE_SECRET_KEY: 'bd80dd4d37ba58c66f1c01c8f66a2e1af5afd5dda6660bc3d278c61bb9a67ca46a1ad16fe2656eef08a94aefc9d4fbcf3820cbba811778d188fedb37072bf6c5'
   SECRET_TOKEN: '45d397af70999c3eb7e3141126b3d731ab5660cad0a2db11481442ab782191db29250bb65326fe4acb40c723c31b41763db843f564773e4d9bac07f68e54a444'
+  SMTP_PORT: '587'
+  SMTP_ADDRESS: 'smtp.servername.com'
+  SMTP_DOMAIN: 'servername.com'
+  SMTP_USER_NAME: 'username'
+  SMTP_PASSWORD: 'password'
+  SMTP_AUTHENTICATION: 'plain'
+  DEFAULT_HOST: '127.0.0.1:3000'
 
 # YOU MUST REPLACE THE ABOVE SECRET KEYS WITH NEW ONES,
 # Use 'rake secret' to generate a key.
@@ -205,10 +219,17 @@ production:
 ###########################################
 test:
   API_SUBDOMAIN:
-  API_PATH: api
+  API_PATH: 'api'
   ADMIN_SUBDOMAIN:
-  ADMIN_PATH: admin
+  ADMIN_PATH: 'admin'
   DEV_SUBDOMAIN:
   DEFAULT_PER_PAGE: '30'
   MAX_PER_PAGE: '50'
-  ADMIN_APP_TOKEN: testing123
+  ADMIN_APP_TOKEN: 'testing123'
+  SMTP_PORT: '587'
+  SMTP_ADDRESS: 'smtp.servername.com'
+  SMTP_DOMAIN: 'servername.com'
+  SMTP_USER_NAME: 'username'
+  SMTP_PASSWORD: 'password'
+  SMTP_AUTHENTICATION: 'plain'
+  DEFAULT_HOST: '127.0.0.1:3000'

@@ -70,12 +70,12 @@ Rails.application.configure do
   config.action_mailer.default charset: 'utf-8'
 
   config.action_mailer.smtp_settings = {
-    port:           '587',
-    address:        'smtp.mandrillapp.com',
-    user_name:      ENV['MANDRILL_USERNAME'],
-    password:       ENV['MANDRILL_APIKEY'],
-    domain:         'heroku.com',
-    authentication: :plain
+    port:           ENV['SMTP_PORT'],
+    address:        ENV['SMTP_ADDRESS'],
+    user_name:      ENV['SMTP_USERNAME'],
+    password:       ENV['SMTP_PASSWORD'],
+    domain:         ENV['SMTP_DOMAIN'],
+    authentication: ENV['SMTP_AUTHENTICATION']
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
