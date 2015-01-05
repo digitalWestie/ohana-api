@@ -17,15 +17,15 @@ The Code for America team have created the following client library which is com
 
 [ohanakapa]: https://github.com/codeforamerica/ohanakapa
 
-## Deploying to Heroku
+## Deploying
+
+### On Centos 6
+
+See the [Wiki](https://github.com/digitalWestie/ohana-api/wiki/How-to-install-and-deploy-on-Centos-6).
+
+### To Heroku
 
 See the [Wiki](https://github.com/digitalWestie/ohana-api/wiki/How-to-deploy-the-Ohana-API-to-your-Heroku-account).
-
-## Local Installation
-
-Follow the instructions in [INSTALL.md][install].
-
-[install]: https://github.com/digitalWestie/ohana-api/blob/master/INSTALL.md
 
 ## Running the tests
 
