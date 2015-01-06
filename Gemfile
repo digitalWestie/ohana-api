@@ -55,7 +55,6 @@ gem 'rack-timeout'
 group :production, :staging do
   # Heroku recommended
   gem 'rails_12factor'
-  gem 'passenger'
 end
 
 group :test, :development do
