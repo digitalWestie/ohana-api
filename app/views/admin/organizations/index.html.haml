@@ -5,6 +5,9 @@
   To start updating, click on one of the links, which will take you to the details page
   for the organization.
 
+  %p
+    = link_to "Add a new #{t('organization')}", new_admin_organization_path, class: 'btn btn-primary'
+
 - if current_admin.super_admin?
   %p
     As a super admin, you have access to all locations in the database. Please make updates responsibly.
