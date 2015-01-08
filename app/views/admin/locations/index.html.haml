@@ -13,6 +13,5 @@
       = link_to location.second, edit_admin_location_path(location.third)
   = paginate @locations
 
-- if @locations.present?
-  %p
-    = link_to 'Add a new location', new_admin_location_path, class: 'btn btn-primary'
+%p
+  = link_to 'Add a new location', new_admin_location_path, class: 'btn btn-primary'
