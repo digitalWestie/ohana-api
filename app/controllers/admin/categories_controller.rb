@@ -19,6 +19,7 @@ class Admin::CategoriesController < ApplicationController
           redirect_to admin_categories_path, notice: 'Category was successfully updated.'
         end
       else
+        @categories = Category.pluck(:name, :id)
         format.html { render :edit }
       end
     end
@@ -38,6 +39,7 @@ class Admin::CategoriesController < ApplicationController
           redirect_to admin_categories_path, notice: 'Category was successfully created.'
         end
       else
+        @categories = Category.pluck(:name, :id)
         format.html { render :new }
       end
     end
@@ -53,7 +55,7 @@ class Admin::CategoriesController < ApplicationController
 
   def set_parent
     ancestry = params[:category].delete(:ancestry)
-    if ancestry.eql?("")
+    if ancestry.blank?
       @category.parent = nil
     else
       @category.parent = Category.find_by(id: ancestry)
