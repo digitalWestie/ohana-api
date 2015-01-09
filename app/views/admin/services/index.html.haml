@@ -9,40 +9,38 @@
   %p
     As a super admin, you have access to all services in the database. Please make updates responsibly.
 
-= "No #{t(:service).pluralize} available" if @services.empty?
+- if @organizations.empty?
+  = "No #{t(:service).pluralize} available. If you are creating a service for a new organisation, please add the organisation first. Otherwise, ask another admin to add you to the list of editors for that organisation or service."
 
-- org = nil
+- @organizations.each do |id, organization|
+  %table{ class: "table table-bordered" }
+    %tr.active
+      %th{ colspan: "4", style: "padding: 1em; text-align:center;" }
+        = link_to organization[:name], admin_organization_path(organization[:slug]) |
+        = link_to "Add new #{t(:service)}", new_admin_organization_service_path(organization[:slug]), class: 'btn'
+    %tr.info
+      %td
+        Name
+      %td
+        Service Admins
+      %td
+        Location(s)
+      %td
+        Actions
+    - organization[:services].each do |service|
+      %tr
+        %td
+          = link_to service.name, edit_admin_organization_service_path(service.organization_id, service)
+        %td
+          = service.admin_emails.join(", ")
+        %td
+          = service.availabilities.collect { |a| a.location.name }.join(", ")
+        %td
+          = link_to 'Duplicate', new_admin_organization_service_path(organization[:slug], duplicate: service.id), class: "btn btn-info"
+          = link_to 'Remove', admin_organization_service_path(organization[:slug], service), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"
 
-%table{ class: "table table-bordered" }
-
-  - @services.each do |service|
-    - unless org.eql? service.organization
-      - org = service.organization
-      %tr.active
-        %th{ colspan: "4", style: "padding: 1em; text-align:center;" }
-          = link_to org.name, admin_organization_path(org) |
-          = link_to "Add new #{t(:service)}", new_admin_organization_service_path(org), class: 'btn'
-      %tr.info
-        %td
-          Name
-        %td
-          Service Admins
-        %td
-          Location(s)
-        %td
-          Actions
-    %tr
-      %td
-        = link_to service.name, edit_admin_organization_service_path(service.organization_id, service)
-      %td
-        = service.admin_emails.join(", ")
-      %td
-        = service.availabilities.collect { |a| a.location.name }.join(", ")
-      %td
-        = link_to 'Duplicate', new_admin_organization_service_path(org, duplicate: service.id), class: "btn btn-info"
-        = link_to 'Remove', admin_organization_service_path(org, service), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"
-
-  - @serviceless_orgs.each do |org|
+- @serviceless_orgs.each do |org|
+  %table{ class: "table table-bordered" }
     %tr
       %th{ colspan: "4", style: "padding: 1em; text-align:center;", class: "active"  }
         = link_to org.name, admin_organization_path(org.slug) |
@@ -50,5 +48,3 @@
     %tr
       %td{ colspan: "4", class: "warning", style: "font-size:0.8em; font-style:italic;" }
         No services found for this organisation
-
-= paginate @services

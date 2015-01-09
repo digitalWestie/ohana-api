@@ -8,13 +8,15 @@ class Admin
     def index
       @admin_decorator = ClacksAdminDecorator.new(current_admin)
 
-      services = Service.where(id: @admin_decorator.services).
-        includes(availabilities: :location).includes(:organization).order(:name)
+      services = Service.where(id: @admin_decorator.services).includes(availabilities: :location).order(:name)
+
+      @organizations = {}
+      orgs = Organization.where(id: services.pluck(:organization_id)).pluck(:id, :slug, :name)
+      orgs.each { |o| @organizations.merge!(o[0] => { slug: o[1], name: o[2], services: [] }) }
+      services.each { |s|  @organizations[s.organization_id][:services] << s }
 
       service_orgs = services.collect {|o| o.organization_id }.uniq
-
       @serviceless_orgs = @admin_decorator.orgs_relation.where.not(id: service_orgs).order(:name).select(:name, :id, :slug)
-      @services = Kaminari.paginate_array(services).page(params[:page]).per(params[:per_page])
     end
 
     def edit
