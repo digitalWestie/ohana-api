@@ -15,4 +15,7 @@
       = link_to org.second, edit_admin_organization_path(org.third)
       = content_tag :span, "(Unapproved)", title: "An admin has not yet approved this organisation.", style: "font-size:0.8em; color:firebrick;" unless org.fourth
 
+%p
+  = link_to "Add a new #{t('organization')}", new_admin_organization_path, class: 'btn btn-primary'
+
   = paginate @orgs

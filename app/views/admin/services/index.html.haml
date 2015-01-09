@@ -13,12 +13,12 @@
   = "No #{t(:service).pluralize} available. If you are creating a service for a new organisation, please add the organisation first. Otherwise, ask another admin to add you to the list of editors for that organisation or service."
 
 - @organizations.each do |id, organization|
-  %table{ class: "table table-bordered" }
+  %table{ class: "table table-bordered", id: "org#{id}" }
     %tr.active
       %th{ colspan: "4", style: "padding: 1em; text-align:center;" }
         = link_to organization[:name], admin_organization_path(organization[:slug]) |
         = link_to "Add new #{t(:service)}", new_admin_organization_service_path(organization[:slug]), class: 'btn'
-    %tr.info
+    %tr.info.collapsible
       %td
         Name
       %td
@@ -28,7 +28,7 @@
       %td
         Actions
     - organization[:services].each do |service|
-      %tr
+      %tr.collapsible
         %td
           = link_to service.name, edit_admin_organization_service_path(service.organization_id, service)
         %td
@@ -38,6 +38,9 @@
         %td
           = link_to 'Duplicate', new_admin_organization_service_path(organization[:slug], duplicate: service.id), class: "btn btn-info"
           = link_to 'Remove', admin_organization_service_path(organization[:slug], service), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"
+    %tr
+      %td{ colspan: "4", class: 'collapse-table' }
+        = link_to "▲", "#org#{id}", class: 'btn collapse-table'
 
 - @serviceless_orgs.each do |org|
   %table{ class: "table table-bordered" }
@@ -45,6 +48,6 @@
       %th{ colspan: "4", style: "padding: 1em; text-align:center;", class: "active"  }
         = link_to org.name, admin_organization_path(org.slug) |
         = link_to "Add new #{t(:service)}", new_admin_organization_service_path(org.slug), class: 'btn'
-    %tr
+    %tr.collapsible
       %td{ colspan: "4", class: "warning", style: "font-size:0.8em; font-style:italic;" }
         No services found for this organisation
