@@ -9,9 +9,10 @@
           %p.alert
             #{@unapproved_orgs} unapproved organisation(s)!
 
-        %h2 XX
-        %p
-          = link_to t(:Organization).pluralize, admin_organizations_path, class: 'btn btn-primary'
+        %h2
+          = link_to admin_organizations_path, class: 'btn btn-primary' do 
+            = @org_count
+            = t(:Organization).pluralize
         %p
           = link_to "Add a new #{t('organization')}", new_admin_organization_path, class: 'btn btn-primary'
         %p
@@ -20,9 +21,10 @@
 
     .col-md-3
       .module
-        %h2 XX
-        %p
-          = link_to t(:Location).pluralize, admin_locations_path, class: 'btn btn-primary'
+        %h2
+          = link_to admin_locations_path, class: 'btn btn-primary' do 
+            = t(:Location).pluralize
+            = @location_count
 
         %p
           = link_to "Add a new #{t('location')}", new_admin_location_path, class: 'btn btn-primary'
@@ -32,18 +34,20 @@
 
     .col-md-3
       .module
-        %h2 XX
-        %p
-          = link_to t(:Service).pluralize, admin_services_path, class: 'btn btn-primary'
+        %h2      
+          = link_to admin_services_path, class: 'btn btn-primary' do
+            =t(:Service).pluralize
+            = @service_count
 
         %p
           A service is the provision of help or assistance to a public group. This is the details that will be listed on the website which users will search for.
 
     .col-md-3
       .module
-        %h2 XX
-        %p
-          = link_to t(:Program).pluralize, admin_programs_path, class: 'btn btn-primary'
+        %h2      
+          = link_to admin_programs_path, class: 'btn btn-primary' do
+            = t(:Program).pluralize
+            = @program_count
 
         %p
           = link_to "Add a new #{t('program')}", new_admin_program_path, class: 'btn btn-primary'
