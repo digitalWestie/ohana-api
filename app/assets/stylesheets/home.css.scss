@@ -1,3 +1,25 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+// COLOURS
+$blue:          #369;
+$white:         #FFF;
+
+
+.navbar {
+  background-color: $blue;
+  color: white;
+
+  .navbar-brand,
+  .navbar-nav > li > a.logged-in,
+  .navbar-nav > li > a { color: $white;}
+
+}
+
+
+.module {
+ border: 1px solid #ccc;
+ text-align: center;
+ padding: 1em
+}

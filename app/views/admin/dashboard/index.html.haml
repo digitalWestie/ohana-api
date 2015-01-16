@@ -1,31 +1,61 @@
 - if admin_signed_in?
   %p
     Welcome back, #{@admin.name}!
-  %p
-    = link_to t(:Organization).pluralize, admin_organizations_path, class: 'btn btn-primary'
-  %p
-    = link_to t(:Location).pluralize, admin_locations_path, class: 'btn btn-primary'
-  %p
-    = link_to t(:Service).pluralize, admin_services_path, class: 'btn btn-primary'
-  %p
-    = link_to t(:Program).pluralize, admin_programs_path, class: 'btn btn-primary'
-  %p
-    = link_to "Add a new #{t('organization')}", new_admin_organization_path, class: 'btn btn-primary'
+
+  .row
+    .col-md-3
+      .module
+        - unless @unapproved_orgs.eql?(0)
+          %p.alert
+            #{@unapproved_orgs} unapproved organisation(s)!
+
+        %h2 XX
+        %p
+          = link_to t(:Organization).pluralize, admin_organizations_path, class: 'btn btn-primary'
+        %p
+          = link_to "Add a new #{t('organization')}", new_admin_organization_path, class: 'btn btn-primary'
+        %p
+          An organisation is the over-riding body that runs a service. This could be your nursery business group, Boys/Girls Brigade Division.
+
+
+    .col-md-3
+      .module
+        %h2 XX
+        %p
+          = link_to t(:Location).pluralize, admin_locations_path, class: 'btn btn-primary'
+
+        %p
+          = link_to "Add a new #{t('location')}", new_admin_location_path, class: 'btn btn-primary'
+        %p
+          A location is where the service is hosted. This could be a physical address like a hall or school, or it can be a website for a virtual service.
+
+
+    .col-md-3
+      .module
+        %h2 XX
+        %p
+          = link_to t(:Service).pluralize, admin_services_path, class: 'btn btn-primary'
+
+        %p
+          A service is the provision of help or assistance to a public group. This is the details that will be listed on the website which users will search for.
+
+    .col-md-3
+      .module
+        %h2 XX
+        %p
+          = link_to t(:Program).pluralize, admin_programs_path, class: 'btn btn-primary'
+
+        %p
+          = link_to "Add a new #{t('program')}", new_admin_program_path, class: 'btn btn-primary'
+
+        %p
+          A programme is an umbrella project which may encompass many different projects, such as Get Active or Healthy Eating.
 
   - if current_admin.super_admin?
 
-    %p
-      = link_to "Add a new #{t('location')}", new_admin_location_path, class: 'btn btn-primary'
-    %p
-      = link_to "Add a new #{t('program')}", new_admin_program_path, class: 'btn btn-primary'
     %p
       = link_to "Manage admin users", admin_admin_users_path, class: 'btn btn-primary'
     %p
       = link_to "Manage categories", admin_categories_path, class: 'btn btn-primary'
 
-    %hr
-
-    - unless @unapproved_orgs.eql?(0)
-      %p.alert
-        #{@unapproved_orgs} unapproved organisation(s)!
 
