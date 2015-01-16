@@ -5,7 +5,7 @@
   .row
     .col-md-3
       .module
-        - unless @unapproved_orgs.eql?(0)
+        - if @unapproved_orgs and @unapproved_orgs > 0
           %p.alert
             #{@unapproved_orgs} unapproved organisation(s)!
 
