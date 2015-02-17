@@ -3,6 +3,7 @@ module ServiceSearch
   included do
     scope :keyword, ->(keyword) { keyword_search(keyword) }
     scope :category, ->(category) { joins(:categories).where(categories: { name: category }) }
+    
     scope :weekdays, ->(weekdays) { joins(:regular_schedules).where(regular_schedules: { weekday: weekdays }) }
 
     scope :org_name, (lambda do |org|
@@ -16,6 +17,10 @@ module ServiceSearch
       domain = email.split('@').last
       services = Service.arel_table
       Service.where(services[:admin_emails].matches("%#{email}%"))
+    end)
+
+    scope :prerequisite_category, (lambda do |category|
+      Service.category(category)
     end)
 
     include PgSearch
@@ -44,10 +49,6 @@ module ServiceSearch
 
       if params[:is_paid].eql?(true) or params[:is_paid].eql?("true")
         search_relation = search_relation.is_paid
-      end
-
-      if params[:prerequisite_category]
-        search_relation = prerequisite_category(search_relation, params[:prerequisite_category])
       end
 
       approval = true
@@ -79,16 +80,12 @@ module ServiceSearch
     end
 
     def is_paid
-      where.not(fees: [nil, '', 'N/A', 'Free'])
+      where.not(fees: [nil, '', 'N/A', 'n/a', 'Free'])
     end
 
     def category_ancestor(ancestor)
       ancestry = Category.where(categories: { name: ancestor }).pluck(:id).map { |id| id.to_s }
       joins(:categories).where(categories: { ancestry: ancestry })
-    end
-
-    def prerequisite_category(results, prerequisite)
-      where(id: results.pluck(:id)).category(prerequisite)
     end
 
     def allowed_params(params)
@@ -99,7 +96,8 @@ module ServiceSearch
         params[:min_age] = age_range[0]
         params[:max_age] = age_range[1]
       end
-      params.slice(:keyword, :activity, :min_age, :max_age, :weekdays, :org_name, :category, :category_ancestor)
+      params.slice(:keyword, :activity, :min_age, :max_age, :weekdays, 
+        :org_name, :category, :category_ancestor, :prerequisite_category)
     end
 
   end
