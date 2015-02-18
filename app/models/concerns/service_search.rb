@@ -18,11 +18,7 @@ module ServiceSearch
       services = Service.arel_table
       Service.where(services[:admin_emails].matches("%#{email}%"))
     end)
-
-    scope :prerequisite_category, (lambda do |category|
-      Service.category(category)
-    end)
-
+    
     include PgSearch
     pg_search_scope :keyword_search,
       against: :search_vector,
@@ -40,7 +36,12 @@ module ServiceSearch
     require 'exceptions'
 
     def search(params = {})
-      search_relation = text_search(params)
+      if params[:prerequisite_category]
+        ids = Service.category(params[:prerequisite_category]).pluck(:id)
+        search_relation = Service.where(id: ids)
+      end
+
+      search_relation = search_relation.text_search(params)
 
       if params[:location].present? or params[:lat_lng].present?
         result = is_near(params[:location], params[:lat_lng], params[:radius]).select(:id)
@@ -97,7 +98,7 @@ module ServiceSearch
         params[:max_age] = age_range[1]
       end
       params.slice(:keyword, :activity, :min_age, :max_age, :weekdays, 
-        :org_name, :category, :category_ancestor, :prerequisite_category)
+        :org_name, :category, :category_ancestor)
     end
 
   end
