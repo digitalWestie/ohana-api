@@ -179,7 +179,7 @@ development:
   SMTP_USER_NAME: 'username'
   SMTP_PASSWORD: 'password'
   SMTP_AUTHENTICATION: 'plain'
-  DEFAULT_HOST: '127.0.0.1:3000'
+  MAILER_URL: '127.0.0.1:3000'
 
 ###############################################################################
 #
@@ -207,7 +207,7 @@ production:
   SMTP_USER_NAME: 'username'
   SMTP_PASSWORD: 'password'
   SMTP_AUTHENTICATION: 'plain'
-  DEFAULT_HOST: '127.0.0.1:3000'
+  MAILER_URL: '127.0.0.1:3000'
 
 # YOU MUST REPLACE THE ABOVE SECRET KEYS WITH NEW ONES,
 # Use 'rake secret' to generate a key.
@@ -232,4 +232,4 @@ test:
   SMTP_USER_NAME: 'username'
   SMTP_PASSWORD: 'password'
   SMTP_AUTHENTICATION: 'plain'
-  DEFAULT_HOST: '127.0.0.1:3000'
+  MAILER_URL: '127.0.0.1:3000'
