@@ -1,5 +1,5 @@
 class NotificationsMailer < ActionMailer::Base
-  default from: SETTINGS[:admin_support_email]
+  default from: SETTINGS[:confirmation_email]
 
   def new_org_created(organization)
     @organization = organization
